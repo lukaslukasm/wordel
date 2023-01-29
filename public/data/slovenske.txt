@@ -163,6 +163,7 @@ torzo
 uhlie
 ulica
 varan
+
 vdova
 veslo
 vodka
