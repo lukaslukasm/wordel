@@ -38,7 +38,8 @@ function App() {
       const promise = await fetch('/data/answers.txt')
       const result = await promise.text()
       let answers = [...result.split('\n')]
-      setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
+      setTheWord('baste')
+      // setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
     }
     fetchTheWord()
 

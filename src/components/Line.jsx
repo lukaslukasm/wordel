@@ -40,29 +40,37 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
 
   useEffect(() => {
     let WIPsolution = solution
+    let statTxt = [5]
+    if (type === 'guess') {
+      for (let i = 0; i < 5; i++) {
+        if (i === WIPsolution.indexOf(word[i])) {
+          WIPsolution = WIPsolution.replace(word[i], ' ')
+          statTxt[i] = '🟩'
+          arr[i] = { char: word[i], tileClass: 'green-tile' }
+        }
+      }
+    }
 
     for (let i = 0; i < 5; i++) {
       switch (type) {
         case 'guess':
           // uz napisane riadky
           let tileClass = ''
-          let statTxt = ''
-          if (i === WIPsolution.indexOf(word[i])) {
-            tileClass = 'green-tile'
-            WIPsolution = WIPsolution.replace(word[i], ' ')
-            statTxt += '🟩'
-          }
-          else if (WIPsolution.indexOf(word[i]) !== -1) {
+
+          // if (WIPsolution[i] === ' ')
+          //   break;
+          if (WIPsolution.indexOf(word[i]) !== -1) {
             tileClass = 'yellow-tile'
             WIPsolution = WIPsolution.replace(word[i], ' ')
-            statTxt += '🟨'
+            statTxt[i] = '🟨'
           }
           else {
             tileClass = 'noluck-tile'
-            statTxt += '⬛️'
+            statTxt[i] = '⬛️'
           }
-          setStatText(prev => [...prev, statTxt])
-          arr.push({ char: word[i], tileClass })
+          if (!arr[i])
+            arr[i] = { char: word[i], tileClass }
+
           break;
         case 'current':
           // pocas pisania
@@ -81,6 +89,11 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
     }
     if (backspace) setBackspace(false)
     setTiles(arr)
+    if (type === 'guess') {
+
+
+      setStatText(prev => [...prev, statTxt])
+    }
   }, [word])
 
   return (
