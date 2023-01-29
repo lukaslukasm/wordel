@@ -35,7 +35,7 @@ function App() {
 
   useLayoutEffect(() => {
     const fetchTheWord = async () => {
-      const promise = await fetch('./data/answers.txt')
+      const promise = await fetch('/data/answers.txt')
       const result = await promise.text()
       let answers = [...result.split('\n')]
       setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
@@ -43,7 +43,7 @@ function App() {
     fetchTheWord()
 
     const fetchDictionary = async () => {
-      const dict = await fetch('./data/guesses.txt')
+      const dict = await fetch('/data/guesses.txt')
       const result = await dict.text()
       setDictionary([...result.split('\n')])
     }
