@@ -128,7 +128,7 @@ function App() {
   return (
     <div className="max-h-screen flex flex-col">
       <header>
-        <h1>Wordeľ</h1>
+        <h1>Wordeľ 🇸🇰</h1>
       </header>
       <main className="w-full items-center flex justify-center">
         {badOrientation === true || badOrientation === 't' ? (
