@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	h1 {
+		@apply text-center font-bold text-[1.5rem] sm:text-[2rem];
+	}
+
+	h2 {
+		@apply text-[2rem];
+	}
+
+	* {
+		font-family: "Clear Sans", "Helvetica Neue";
+		box-sizing: border-box;
+		@apply text-[#fafafa] font-bold;
+	}
+
+	html {
+		@apply bg-[#121213];
+	}
+
+	main {
+		@apply mx-auto flex flex-col;
+	}
+
+	header {
+		@apply w-full py-0 sm:py-2.5 border-b border-neutral-700;
+	}
+
+	.tile {
+		@apply select-none h-[7.9vh] w-[7.9vh] max-w-[62px] text-[2rem] flex justify-center items-center max-h-[62px] uppercase font-bold;
+	}
+
+	.keyboard {
+		@apply flex flex-col mt-3 px-1.5 gap-2 items-center w-full max-w-[484px];
+	}
+
+	.keyboard-row {
+		@apply flex w-full flex-row gap-1.5;
+	}
+
+	.key {
+		-webkit-tap-highlight-color: rgba(0, 0, 0, 0.3);
+		@apply !flex-[1] text-[13.3333px] rounded-[4px] 
+		select-none justify-center flex-grow 
+		flex font-bold items-center uppercase 
+		h-[58px] bg-[#818384]
+		transition-colors;
+	}
+
+	.alert {
+		@apply bg-gray-50 text-sm z-50 absolute left-1/2 top-5 sm:top-16 rounded-md px-4 py-3 text-black;
+	}
+
+	.empty-tile {
+		@apply tile border-2 justify-self-end border-neutral-700;
+	}
+
+	.yellow-tile {
+		@apply tile bg-[#b59f3b];
+	}
+
+	.green-tile {
+		@apply tile bg-green-700;
+	}
+
+	.current-tile {
+		@apply tile bg-black border-2 border-neutral-500;
+	}
+
+	.noluck-tile {
+		@apply tile bg-neutral-700;
+	}
+
+	.board {
+		height: calc((6 * min(7.9vh, 62px)) + (5 * 6px));
+		/* max-height: calc((6 * 62px) + (5 * 6px)); */
+		@apply flex mt-3 mx-auto justify-between
+		sm:h-[calc((6*62px)+(5*6px))]
+		 flex-col items-center sm:max-h-min;
+	}
+
+	.btn {
+		@apply bg-green-700 my-3 justify-center items-center w-56 inline-flex h-14 rounded-full;
+	}
+
+	.btn-share {
+		@apply btn bg-[#fafafa]   w-56 text-black;
+	}
+}
