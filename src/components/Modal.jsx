@@ -58,13 +58,13 @@ function Modal({ win, game, statTxt, setAlertMessage }) {
               Kopírovať výsedok
               <img src={copy} className='mt-0.5 w-6 ml-3' />
             </button> */}
-            <span className='text-center -mt-2.5 text-neutral-600 text-xs'>
+            {/* <span className='text-center -mt-2.5 text-neutral-600 text-xs'>
               {win ?
                 "Pochval še dakemu"
                 :
                 "Pošli dakemu naj poplače stebu"
-              }
-            </span>
+              } */}
+            {/* </span> */}
             <hr className="my-3 border-px border-[#f0f0f0] w-full" />
             <span className='text-neutral-600 mt-2'>
               No co, dame ešte jedno?
