@@ -16,8 +16,7 @@ function HelpModal({ setShowModal }) {
         <li className="font-medium">podstatné meno, číslovka, citoslovce alebo príslovka</li>
         <li className="font-medium">nominatív singuláru</li>
       </ul>
-      <span>Políčka sa zafarbia podľa toho, ako blízko si k hádanému slovu.</span>
-      <br />
+      <span className="mb-2">Políčka sa zafarbia podľa toho, ako blízko si k hádanému slovu.</span>
       <span>Príklady:</span>
       <div className='flex mb-1 mt-4 gap-1 w-full'>
         <span className="small-green-tile">M</span>
@@ -42,7 +41,8 @@ function HelpModal({ setShowModal }) {
         <span className="small-unluck-tile">E</span>
         <span className="small-unluck-tile">L</span>
       </div>
-      <span className="italic text-sm mb-3 font-medium">Ani jedno z týchto písmen sa v hľadanom slove nenachádza</span>
+      <span className="italic text-sm mb-1 font-medium">Ani jedno z týchto písmen sa v hľadanom slove nenachádza</span>
+      <span className="italic text-sm translate-y-4 text-neutral-600 mb-3 font-medium">Predokončenie ťahu stlač ENTER.</span>
 
     </Modal >
   )

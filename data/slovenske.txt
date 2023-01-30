@@ -5,15 +5,21 @@ babka
 kasta
 zmena
 bahor
+
 blato
 baran
 batat
 zamat
+tovar
 cieva
 sedem
 motor
+drozd
 tumor
+orech
 batoh
+sonda
+satan
 kefka
 hanba
 blesk
@@ -151,6 +157,7 @@ brloh
 polka
 pasca
 penis
+popud
 kocka
 potok
 plece
@@ -269,9 +276,11 @@ maska
 plech
 hriva
 hruda
+pohyb
 odpor
 otvor
 kotva
+pobyt
 pozor
 obzor
 dozor
@@ -282,3 +291,5 @@ minca
 lacno
 blaho
 imelo
+lepok
+farma
