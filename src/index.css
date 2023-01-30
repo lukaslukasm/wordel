@@ -76,7 +76,7 @@
 	}
 
 	.small-tile {
-		@apply w-8 h-8 flex justify-center items-center leading-none text-xl;
+		@apply w-10 h-10 flex justify-center items-center leading-none text-2xl;
 	}
 
 	.small-green-tile {
