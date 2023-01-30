@@ -1,6 +1,7 @@
 akcia
 anjel
 aorta
+zmena
 babka
 kasta
 bahor

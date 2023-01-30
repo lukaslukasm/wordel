@@ -3,6 +3,7 @@ anjel
 aorta
 babka
 kasta
+zmena
 bahor
 blato
 baran
