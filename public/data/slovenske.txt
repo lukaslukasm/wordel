@@ -232,6 +232,8 @@ skrat
 humor
 alarm
 smrad
+kruto
+preto
 model
 hrzda
 sklad
