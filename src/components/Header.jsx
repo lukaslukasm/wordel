@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import help from '../assets/help.svg'
 import HelpModal from './HelpModal'

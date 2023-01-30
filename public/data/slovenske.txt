@@ -177,6 +177,7 @@ slnko
 slovo
 smola
 rolka
+vrelo
 sopka
 stred
 pumpa
@@ -215,10 +216,18 @@ zeler
 chrup
 zinok
 zlato
+cudzo
 zmija
+krivo
 zubor
 sedlo
+pekne
+vajce
+hovno
+rovno
 retro
+ladne
+pocit
 skrat
 humor
 alarm

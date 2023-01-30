@@ -12,8 +12,8 @@ function HelpModal({ setShowModal }) {
         Uhádni slovo, máš na to 6 pokusov. Každý pokus musí byť:
       </p>
       <ul className="italic font-medium list-disc ml-4 mb-1.5">
-        <li className="font-medium">spisovné 5-písmenové slovo</li>
-        <li className="font-medium">podstatné meno, číslovka alebo citoslovce</li>
+        <li className="font-medium">spisovné, 5-písmenové, bez diakritiky</li>
+        <li className="font-medium">podstatné meno, číslovka, citoslovce alebo príslovka</li>
         <li className="font-medium">nominatív singuláru</li>
       </ul>
       <span>Políčka sa zafarbia podľa toho, ako blízko si k hádanému slovu.</span>
@@ -42,7 +42,8 @@ function HelpModal({ setShowModal }) {
         <span className="small-unluck-tile">E</span>
         <span className="small-unluck-tile">L</span>
       </div>
-      <span className="italic text-sm font-medium">Ani jedno z týchto písmen sa v hľadanom slove nenachádza</span>
+      <span className="italic text-sm mb-3 font-medium">Ani jedno z týchto písmen sa v hľadanom slove nenachádza</span>
+
     </Modal >
   )
 }
