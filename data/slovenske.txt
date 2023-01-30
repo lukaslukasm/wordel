@@ -265,6 +265,7 @@ kriak
 ryska
 krysa
 maska
+plech
 hriva
 hruda
 odpor
@@ -279,3 +280,4 @@ draho
 minca
 lacno
 blaho
+imelo

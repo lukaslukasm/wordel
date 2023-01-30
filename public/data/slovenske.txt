@@ -17,6 +17,7 @@ batoh
 kefka
 hanba
 blesk
+imelo
 bedro
 brzda
 blcha
@@ -27,6 +28,7 @@ borka
 brada
 breza
 bronz
+plech
 bunda
 bunka
 bytie
