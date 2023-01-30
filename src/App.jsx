@@ -160,7 +160,6 @@ function App() {
 
               <Alert permanent={!game} message={alertMessage} setMessage={setAlertMessage} />
             </div>
-            {theWord}
             <Keyboard guesses={guesses} solution={theWord} keyPressedHandler={keyPressedHandler} />
           </>
         )}
