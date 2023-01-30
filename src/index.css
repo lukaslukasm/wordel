@@ -26,7 +26,7 @@
 	}
 
 	header {
-		@apply w-full py-0 sm:py-2.5 border-b border-neutral-700;
+		@apply w-full justify-between px-4 flex flex-row py-0 sm:py-2.5 border-b border-neutral-700;
 	}
 
 	.tile {
@@ -35,6 +35,15 @@
 
 	.keyboard {
 		@apply flex flex-col mt-3 px-1.5 gap-2 items-center w-full max-w-[484px];
+	}
+
+	.modal-bg {
+		@apply absolute inset-0 z-40 flex justify-center items-center
+		backdrop-blur-sm w-screen;
+	}
+
+	.modal {
+		@apply select-none bg-neutral-900 w-[min(100vw,400px)] flex drop-shadow-2xl relative rounded-xl p-4 flex-col justify-center items-center;
 	}
 
 	.keyboard-row {
@@ -64,6 +73,21 @@
 
 	.green-tile {
 		@apply tile bg-green-700;
+	}
+
+	.small-tile {
+		@apply w-8 h-8 flex justify-center items-center leading-none text-xl;
+	}
+
+	.small-green-tile {
+		@apply small-tile bg-green-700;
+	}
+
+	.small-yellow-tile {
+		@apply small-tile bg-[#b59f3b];
+	}
+	.small-unluck-tile {
+		@apply small-tile bg-neutral-700;
 	}
 
 	.current-tile {

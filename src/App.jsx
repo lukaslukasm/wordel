@@ -3,8 +3,9 @@ import uuid from "react-uuid"
 import Line from "./components/Line"
 // import dictionary from "../data/database"
 import Alert from "./components/Alert"
-import Modal from "./components/Modal"
+import EndModal from "./components/EndModal"
 import Keyboard from "./components/Keyboard"
+import Header from "./components/Header"
 
 function App() {
   const [guesses, setGuesses] = useState([])
@@ -127,9 +128,7 @@ function App() {
 
   return (
     <div className="max-h-screen flex flex-col">
-      <header>
-        <h1>Wordeľ 🇸🇰</h1>
-      </header>
+      <Header />
       <main className="w-full items-center flex justify-center">
         {badOrientation === true || badOrientation === 't' ? (
           <h2 className="absolute text-center bottom-1/2 translate-y-1/2 left-0 right-0">
@@ -164,7 +163,7 @@ function App() {
             <Keyboard guesses={guesses} solution={theWord} keyPressedHandler={keyPressedHandler} />
           </>
         )}
-        <Modal win={win} game={game} solution={theWord} setAlertMessage={setAlertMessage} statTxt={statTxt} />
+        <EndModal win={win} game={game} solution={theWord} setAlertMessage={setAlertMessage} statTxt={statTxt} />
       </main>
     </div>
 
