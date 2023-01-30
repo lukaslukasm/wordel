@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <header>
-      <span className="w-14" />
+      <span className="w-12" />
       <h1 className="">Wordeľ 🇸🇰</h1>
       {/* <h1 className="flex-grow">|</h1> */}
       <button onClick={() => setShowHelp(true)}><img src={help} alt="" className="w-6" /></button>
