@@ -93,7 +93,7 @@ function App() {
         return [...prev, currentGuess]
       })
       if (currentGuess === theWord) {
-        setAlertMessage('🎉🎊✨☄️')
+        setAlertMessage('👏🏻 👏🏻 👏🏻')
         setWin(true)
         setGame(false)
       }
@@ -160,6 +160,7 @@ function App() {
 
               <Alert permanent={!game} message={alertMessage} setMessage={setAlertMessage} />
             </div>
+            {theWord}
             <Keyboard guesses={guesses} solution={theWord} keyPressedHandler={keyPressedHandler} />
           </>
         )}
