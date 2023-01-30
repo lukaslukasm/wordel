@@ -81,7 +81,7 @@ function App() {
 
     const enterHandler = async () => {
       if (dictionary.indexOf(currentGuess) === -1) {
-        setAlertMessage('Take neznam')
+        setAlertMessage('Nepoznám')
         setShake(true)
         return
       }
@@ -93,7 +93,7 @@ function App() {
         return [...prev, currentGuess]
       })
       if (currentGuess === theWord) {
-        setAlertMessage('vyboorne veduci!')
+        setAlertMessage('🎉🎊✨☄️')
         setWin(true)
         setGame(false)
       }
@@ -132,7 +132,7 @@ function App() {
       <main className="w-full items-center flex justify-center">
         {badOrientation === true || badOrientation === 't' ? (
           <h2 className="absolute text-center bottom-1/2 translate-y-1/2 left-0 right-0">
-            Wordeľ še bavi na vyšku gluptaku.
+            Wordeľ še bavi na vyšku.
           </h2>
         ) : (
           <>

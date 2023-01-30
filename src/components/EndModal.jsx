@@ -41,7 +41,7 @@ function EndModal({ win, game, statTxt, setAlertMessage, solution }) {
       {showModal &&
         <Modal setShowModal={setShowModal}>
           <h2 className="mt-3 mb-2">
-            {win ? 'Si zabil!' : 'Slaby kus'}
+            {win ? 'Výborne!' : 'Nevydalo'}
           </h2>
           {
             !win &&
