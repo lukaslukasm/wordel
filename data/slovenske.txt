@@ -89,6 +89,7 @@ kapia
 kapor
 katar
 kniha
+krysa
 koala
 kokot
 kozel
@@ -187,6 +188,7 @@ sojka
 sokol
 srdce
 strop
+ryska
 stroj
 strom
 sumec
@@ -201,9 +203,11 @@ uhlie
 ulica
 varan
 vdova
+golem
 veslo
 vodka
 vojak
+model
 vojna
 vrana
 vznik
@@ -218,5 +222,10 @@ zmija
 zubor
 retro
 skrat
+sedlo
+posol
+smrad
+sklad
 humor
 alarm
+hrdza

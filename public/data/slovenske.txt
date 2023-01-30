@@ -54,6 +54,7 @@ dvere
 ebola
 epika
 fajka
+golem
 farba
 forma
 gajdy
@@ -216,7 +217,15 @@ zinok
 zlato
 zmija
 zubor
+sedlo
 retro
 skrat
 humor
 alarm
+smrad
+model
+hrzda
+sklad
+posol
+ryska
+krysa

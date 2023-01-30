@@ -3,7 +3,7 @@ import x from '/src/assets/x.svg'
 import copy from '/src/assets/copy.svg'
 import restart from '/src/assets/restart.svg'
 
-function Modal({ win, game, statTxt, setAlertMessage }) {
+function Modal({ win, game, statTxt, setAlertMessage, solution }) {
   const [showModal, setShowModal] = useState(false)
   const stats = `
   Wordeľ         
@@ -43,10 +43,15 @@ function Modal({ win, game, statTxt, setAlertMessage }) {
                    backdrop-blur-sm w-screen "
         >
           <div className="bg-neutral-900 w-[min(100vw,400px)] flex drop-shadow-2xl relative rounded-xl p-4 flex-col justify-center items-center">
-            <h2 className="mt-3">
+            <h2 className="mt-3 mb-2">
               {win ? 'Si zabil!' : 'Slaby kus'}
             </h2>
-
+            {
+              !win &&
+              <>
+                <span>Správna odpoveď – <span className="uppercase">{solution}</span></span>
+              </>
+            }
             <button className='h-6 absolute right-3 top-3' onClick={() => setShowModal(false)}>
               <img src={x} alt="" />
             </button>

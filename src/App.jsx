@@ -164,7 +164,7 @@ function App() {
             <Keyboard guesses={guesses} solution={theWord} keyPressedHandler={keyPressedHandler} />
           </>
         )}
-        <Modal win={win} game={game} setAlertMessage={setAlertMessage} statTxt={statTxt} />
+        <Modal win={win} game={game} solution={theWord} setAlertMessage={setAlertMessage} statTxt={statTxt} />
       </main>
     </div>
 
