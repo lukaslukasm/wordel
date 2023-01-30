@@ -31,6 +31,7 @@ bunda
 bunka
 bytie
 cesta
+viera
 vloha
 cesto
 chata
@@ -109,6 +110,7 @@ mamut
 marec
 maslo
 mater
+termo
 matie
 denko
 matka
@@ -161,6 +163,7 @@ pudel
 pupok
 pyrit
 rasca
+miera
 tanec
 rebro
 rieka
@@ -193,6 +196,7 @@ strop
 stroj
 strom
 sumec
+teplo
 svrab
 tabak
 tatko
@@ -227,6 +231,7 @@ vajce
 hovno
 rovno
 retro
+larva
 ladne
 pocit
 skrat
@@ -239,5 +244,7 @@ model
 hrzda
 sklad
 posol
+kriak
 ryska
 krysa
+maska
