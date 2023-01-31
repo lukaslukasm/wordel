@@ -48,7 +48,7 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
           WIPsolution = WIPsolution.replace(WIPword[i], ' ')
           WIPword = WIPword.replace(word[i], '_')
           statTxt[i] = '🟩'
-          console.log('green: ' + word[i] + ' ' + i)
+
           arr[i] = { char: word[i], tileClass: 'green-tile' }
         }
       }
@@ -65,7 +65,7 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
           if (WIPsolution.indexOf(WIPword[i]) !== -1) {
             tileClass = 'yellow-tile'
             WIPsolution = WIPsolution.replace(WIPword[i], ' ')
-            console.log('yellow: ' + WIPword[i] + ' ' + i)
+
             statTxt[i] = '🟨'
           }
           else {
