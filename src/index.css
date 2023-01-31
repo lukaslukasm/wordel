@@ -60,7 +60,7 @@
 
 	.modal-bg {
 		@apply absolute inset-0 z-40 flex justify-center items-end
-		backdrop-blur-sm max-h-screen overflow-y-scroll w-screen;
+		backdrop-blur-sm overflow-y-scroll w-screen;
 	}
 
 	.modal {
@@ -124,7 +124,7 @@
 		height: calc((6 * min(8.3vh, 64px)) + 36px);
 		/* max-height: calc((6 * 62px) + (5 * 6px)); */
 		@apply flex mt-1.5 mx-auto justify-between
-		sm:h-[calc((6*62px)+(5*6px))]
+		sm:h-[calc((6*64px)+36px)]
 		 flex-col items-center sm:max-h-min;
 	}
 

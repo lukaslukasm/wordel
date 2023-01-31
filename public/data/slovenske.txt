@@ -322,3 +322,4 @@ dudok
 stres
 husle
 panna
+tvrdo

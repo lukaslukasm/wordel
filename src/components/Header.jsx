@@ -10,13 +10,14 @@ function Header() {
 
   return (
     <header>
-      <button
-        className="w-12 flex pl-1.5 justify-center items-start flex-col gap-2"
-      // onClick={() => setShowMenu(true)}
+      <span className="w-10"></span>
+      {/* <button
+        className="w-10 flex pl-1.5 justify-center items-start flex-col gap-2"
+        onClick={() => setShowMenu(true)}
       >
-        {/* <span className="bg-ourwhite h-[3px] w-6 rounded-full" />
-        <span className="bg-ourwhite h-[3px] w-6 rounded-full" /> */}
-      </button>
+        <span className="bg-ourwhite h-[3px] w-6 rounded-full" />
+        <span className="bg-ourwhite h-[3px] w-6 rounded-full" />
+      </button> */}
       <h1 className="flex items-center gap-2">Wordeľ <img src={flagSk} alt="" className="w-8 inline-block" /></h1>
       {/* <h1 className="flex-grow">|</h1> */}
       <button
