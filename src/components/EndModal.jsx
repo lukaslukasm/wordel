@@ -49,9 +49,6 @@ function EndModal({ win, game, statTxt, setAlertMessage, solution }) {
               <span>Správna odpoveď – <span className="uppercase">{solution}</span></span>
             </>
           }
-          <button className='h-6 absolute right-3 top-3' onClick={() => setShowModal(false)}>
-            <img src={x} alt="" />
-          </button>
           {/* <p className='bg-neutral-800 rounded-sm '>
               {stats}
             </p> */}

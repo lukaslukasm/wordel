@@ -106,7 +106,7 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
       initial='hidden'
       animate='show'
       exit='exit'
-      className={`flex flex-row gap-1.5 ${type === 'guess' ? 'justify-self-start' : 'justify-self-end'}`}
+      className={`flex mt-1.5 flex-row gap-1.5 ${type === 'guess' ? 'justify-self-start' : 'justify-self-end'}`}
     >
       {type !== 'guess' ?
         tiles

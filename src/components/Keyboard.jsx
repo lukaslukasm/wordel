@@ -1,5 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import backspace from '../assets/backspace.svg'
+import enter from '../assets/enter.png'
 
 const FIRST_ROW_KEYS = 'qwertyuiop'
 const SECOND_ROW_KEYS = 'asdfghjkl'
@@ -72,7 +73,9 @@ function Keyboard({ guesses, solution, keyPressedHandler }) {
       </div>
 
       <div className="keyboard-row">
-        <button onClick={() => keyPressedHandler({ key: 'Enter' })} className="key !flex-[1.5]">enter</button>
+        <button onClick={() => keyPressedHandler({ key: 'Enter' })} className="key !flex-[1.5]">
+          <img src={enter} className='invert w-8' alt="" />
+        </button>
         {THIRD_ROW_KEYS.split('').map((key) =>
           <button
             className={getClassFor(key)}

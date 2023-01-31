@@ -37,7 +37,7 @@ function App() {
 
   useLayoutEffect(() => {
     const fetchTheWord = async () => {
-      const promise = await fetch('../data/slovenske.txt')
+      const promise = await fetch('/data/slovenske.txt')
       const result = await promise.text()
       let answers = [...result.split('\n')]
       setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
@@ -45,7 +45,7 @@ function App() {
     fetchTheWord()
 
     const fetchDictionary = async () => {
-      const dict = await fetch('../data/slovenske.txt')
+      const dict = await fetch('/data/slovenske.txt')
       const result = await dict.text()
       setDictionary([...result.split('\n')])
     }
@@ -140,12 +140,12 @@ function App() {
             {/* board */}
             <div className="board">
               {guesses &&
-                <div className="flex flex-col justify-start gap-1.5">
+                <div className="flex flex-col justify-start">
                   {guessTiles}
                 </div>
               }
               {/* current guess */}
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col">
                 {guesses.length < 6 &&
                   <Line
                     word={currentGuess}

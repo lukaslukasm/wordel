@@ -26,7 +26,7 @@ function Modal({ setShowModal, children }) {
             exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
           >
             <button
-              className='h-6 absolute right-3 top-3'
+              className='h-6 absolute right-3 top-5'
               onClick={() => handleXClick()}
             >
               <img src={x} alt="" />
