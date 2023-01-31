@@ -321,3 +321,4 @@ bubon
 dudok
 stres
 husle
+panna
