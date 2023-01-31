@@ -40,12 +40,15 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
 
   useEffect(() => {
     let WIPsolution = solution
+    let WIPword = word
     let statTxt = [5]
     if (type === 'guess') {
       for (let i = 0; i < 5; i++) {
-        if (i === WIPsolution.indexOf(word[i])) {
-          WIPsolution = WIPsolution.replace(word[i], ' ')
+        if (WIPword[i] === WIPsolution[i]) {
+          WIPsolution = WIPsolution.replace(WIPword[i], ' ')
+          WIPword = WIPword.replace(word[i], '_')
           statTxt[i] = '🟩'
+          console.log('green: ' + word[i] + ' ' + i)
           arr[i] = { char: word[i], tileClass: 'green-tile' }
         }
       }
@@ -59,9 +62,10 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
 
           // if (WIPsolution[i] === ' ')
           //   break;
-          if (WIPsolution.indexOf(word[i]) !== -1) {
+          if (WIPsolution.indexOf(WIPword[i]) !== -1) {
             tileClass = 'yellow-tile'
-            WIPsolution = WIPsolution.replace(word[i], ' ')
+            WIPsolution = WIPsolution.replace(WIPword[i], ' ')
+            console.log('yellow: ' + WIPword[i] + ' ' + i)
             statTxt[i] = '🟨'
           }
           else {
@@ -70,7 +74,6 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
           }
           if (!arr[i])
             arr[i] = { char: word[i], tileClass }
-
           break;
         case 'current':
           // pocas pisania

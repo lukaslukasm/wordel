@@ -5,11 +5,11 @@ babka
 kasta
 zmena
 bahor
-
 blato
 baran
 batat
 zamat
+akord
 tovar
 cieva
 sedem
@@ -115,6 +115,7 @@ lutna
 mamut
 marec
 maslo
+malta
 mater
 termo
 matie
@@ -148,6 +149,7 @@ pasta
 lopta
 osoba
 dielo
+panel
 panda
 prdel
 diera
@@ -161,6 +163,7 @@ popud
 kocka
 potok
 plece
+norma
 ponor
 popol
 prasa
@@ -180,6 +183,7 @@ sadza
 miska
 sisal
 slama
+nafta
 slang
 bieda
 plast
@@ -265,7 +269,6 @@ facka
 kruto
 preto
 model
-hrzda
 sklad
 posol
 kriak
@@ -293,3 +296,22 @@ blaho
 imelo
 lepok
 farma
+korok
+sonda
+satan
+drozd
+orech
+posed
+paroh
+pomer
+pokus
+kolos
+mrena
+vedro
+hokej
+kozub
+rakva
+bubon
+dudok
+stres
+husle

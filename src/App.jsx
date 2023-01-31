@@ -7,10 +7,11 @@ import EndModal from "./components/EndModal"
 import Keyboard from "./components/Keyboard"
 import Header from "./components/Header"
 
+
 function App() {
   const [guesses, setGuesses] = useState([])
-  const [theWord, setTheWord] = useState()
-  const [badOrientation, setBadOrientation] = useState((window.innerHeight < window.innerWidth && window.innerHeight < 600) ? 't' : 'f')
+  const [theWord, setTheWord] = useState('skala')
+  const [badOrientation, setBadOrientation] = useState((window.innerHeight < window.innerWidth && window.innerHeight < 450) ? 't' : 'f')
   const [currentGuess, setCurrentGuess] = useState('')
   const [game, setGame] = useState(true)
   const [win, setWin] = useState(false)
@@ -30,8 +31,8 @@ function App() {
   const [statTxt, setStatText] = useState([])
 
   useEffect(() => {
-    window.addEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 600))
-    return () => window.removeEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 600))
+    window.addEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 450))
+    return () => window.removeEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 4500))
   }, [])
 
   useLayoutEffect(() => {
@@ -41,7 +42,7 @@ function App() {
       let answers = [...result.split('\n')]
       setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
     }
-    fetchTheWord()
+    // fetchTheWord()
 
     const fetchDictionary = async () => {
       const dict = await fetch('/data/slovenske.txt')

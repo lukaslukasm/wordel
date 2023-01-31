@@ -7,12 +7,33 @@
 		@apply text-center font-bold text-[1.5rem] sm:text-[2rem];
 	}
 
+	@font-face {
+		font-family: "Clear Sans";
+		font-weight: 500;
+		font-style: normal;
+		src: url("./assets/ClearSans.woff2") format("woff2");
+	}
+
+	@font-face {
+		font-family: "Clear Sans";
+		font-weight: 700;
+		font-style: normal;
+		src: url("./assets/ClearSans-Bold.woff2") format("woff2");
+	}
+
+	@font-face {
+		font-family: "Clear Sans";
+		font-weight: 500;
+		font-style: italic;
+		src: url("./assets/ClearSans-italic.woff2") format("woff2");
+	}
+
 	h2 {
 		@apply text-[2rem];
 	}
 
 	* {
-		font-family: "Clear Sans", "Helvetica Neue";
+		font-family: "Clear Sans", "Helvetica Neue", sans-serif;
 		box-sizing: border-box;
 		@apply text-[#fafafa] font-bold;
 	}
@@ -114,5 +135,20 @@
 
 	.btn-share {
 		@apply btn bg-[#fafafa]   w-56 text-black;
+	}
+
+	@media (max-height: 800px) {
+		.board {
+			height: calc((6 * 7.9vh) + (5 * 6px));
+		}
+	}
+
+	@media (max-height: 600px) {
+		.key {
+			height: 8vh;
+		}
+		header {
+			@apply py-0;
+		}
 	}
 }

@@ -42,7 +42,7 @@ function HelpModal({ setShowModal }) {
         <span className="small-unluck-tile">L</span>
       </div>
       <span className="italic text-sm mb-1 font-medium">Ani jedno z týchto písmen sa v hľadanom slove nenachádza</span>
-      <span className="italic text-sm translate-y-4 text-neutral-600 mb-3 font-medium">Predokončenie ťahu stlač ENTER.</span>
+      <span className="text-sm translate-y-4 text-neutral-600 mb-3">Pre dokončenie ťahu stlač ENTER.</span>
 
     </Modal >
   )
