@@ -10,7 +10,7 @@ import Header from "./components/Header"
 
 function App() {
   const [guesses, setGuesses] = useState([])
-  const [theWord, setTheWord] = useState('skala')
+  const [theWord, setTheWord] = useState('')
   const [badOrientation, setBadOrientation] = useState((window.innerHeight < window.innerWidth && window.innerHeight < 450) ? 't' : 'f')
   const [currentGuess, setCurrentGuess] = useState('')
   const [game, setGame] = useState(true)
@@ -42,7 +42,7 @@ function App() {
       let answers = [...result.split('\n')]
       setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
     }
-    // fetchTheWord()
+    fetchTheWord()
 
     const fetchDictionary = async () => {
       const dict = await fetch('/data/slovenske.txt')
