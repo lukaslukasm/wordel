@@ -1,19 +1,16 @@
-import { useState } from "react"
 import Modal from "./Modal"
 
 function HelpModal({ setShowModal }) {
 
-
-
   return (
     <Modal setShowModal={setShowModal}>
       <h1 className="mb-2 mt-3">Ako hrať Wordeľ</h1>
-      <p className="font-medium">
-        Uhádni slovo, máš na to 6 pokusov. Každý pokus musí byť:
+      <p className="font-bold w-full">
+        Uhádni slovo, máš 6 pokusov. Validný pokus je:
       </p>
       <ul className="italic font-medium list-disc ml-4 mb-1.5">
-        <li className="font-medium">spisovné, 5-písmenové, bez diakritiky</li>
         <li className="font-medium">podstatné meno, číslovka, citoslovce alebo príslovka</li>
+        <li className="font-medium">spisovné, 5-písmenové, bez diakritiky</li>
         <li className="font-medium">nominatív singuláru</li>
       </ul>
       <span className="mb-2">Políčka sa zafarbia podľa toho, ako blízko si k hádanému slovu.</span>
