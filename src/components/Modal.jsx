@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useState } from 'react'
-import x from '/src/assets/x.svg'
+import x from '/src/assets/x.png'
 
 function Modal({ setShowModal, children }) {
 
@@ -26,10 +26,10 @@ function Modal({ setShowModal, children }) {
             exit={{ y: 20, opacity: 0, transition: { duration: 0.1 } }}
           >
             <button
-              className='h-6 absolute right-3 top-5'
+              className='h-6 absolute right-4 top-4'
               onClick={() => handleXClick()}
             >
-              <img src={x} alt="" />
+              <img src={x} alt="" className='invert w-4' />
             </button>
             {children}
           </motion.div>

@@ -54,6 +54,7 @@ kurva
 cviko
 decht
 vlaha
+dobre
 kokos
 karma
 dedko
@@ -73,6 +74,7 @@ gajdy
 gazda
 gajdy
 gazda
+hravo
 grand
 gulag
 herec
@@ -130,7 +132,6 @@ matka
 mesto
 metla
 sprej
-karta
 doska
 morka
 motel
@@ -260,10 +261,16 @@ krtko
 hlien
 detox
 spona
+karta
 trdlo
 biela
+jemne
 pleno
 palma
+potom
+hravo
+pravo
+dravo
 pilot
 lovec
 ticho

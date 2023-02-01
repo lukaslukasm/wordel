@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import x from '/src/assets/x.svg'
 import copy from '/src/assets/copy.svg'
 import restart from '/src/assets/restart.svg'
 import Modal from "./Modal"
