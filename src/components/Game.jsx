@@ -1,11 +1,9 @@
 import { useContext, useEffect, useLayoutEffect, useState } from "react"
 import uuid from "react-uuid"
 import Line from "./Line"
-// import dictionary from "../data/database"
 import Alert from "./Alert"
 import EndModal from "./EndModal"
 import Keyboard from "./Keyboard"
-import Header from "./Header"
 import LangContext from "./LangContext"
 
 
@@ -54,7 +52,7 @@ function Game() {
     const fetchDictionary = async () => {
       let dict
       if (language === 'sk')
-        dict = await fetch('/data/slovenske.txt')
+        dict = await fetch('/data/slovnik.txt')
       else
         dict = await fetch('/data/guesses.txt')
       const result = await dict.text()
@@ -93,11 +91,14 @@ function Game() {
 
 
     const enterHandler = async () => {
+
       if (dictionary.indexOf(currentGuess) === -1) {
         setAlertMessage('Nepoznám')
         setShake(true)
         return
       }
+
+
       setGuesses(prev => {
         if (prev.length === 5) {
           setGame(false)
