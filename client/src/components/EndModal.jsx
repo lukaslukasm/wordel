@@ -2,9 +2,12 @@ import { useEffect, useState } from "react"
 import copy from '/src/assets/copy.svg'
 import restart from '/src/assets/restart.svg'
 import Modal from "./Modal"
+import { useContext } from "react"
+import LangContext from "./LangContext"
 
 function EndModal({ win, game, statTxt, setAlertMessage, solution }) {
   const [showModal, setShowModal] = useState(false)
+  const [lang, setLang] = useContext(LangContext)
   const stats = `
   Wordeľ         
   ${win ? statTxt.length : 'X'}/6${'\n'}
@@ -68,7 +71,7 @@ function EndModal({ win, game, statTxt, setAlertMessage, solution }) {
             Dáme ešte jedno?
           </span>
 
-          <button className="btn" onClick={() => window.location.reload(true)}>
+          <button className="btn" onClick={() => setLang(prev => { prev })}>
             Nová hra
           </button>
         </Modal>
