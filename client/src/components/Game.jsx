@@ -28,8 +28,6 @@ function Game() {
 
   useEffect(() => {
     window.addEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 450))
-    if (!localStorage.getItem('laguage'))
-      localStorage.setItem('language', 'sk')
     return () => window.removeEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 4500))
   }, [])
 

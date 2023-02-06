@@ -7,6 +7,7 @@ import LangContext from "./components/LangContext"
 function App() {
   const [language, setLanguage] = useState(localStorage.getItem('language') || 'sk')
   const [key, setKey] = useState(uuid())
+
   useEffect(() => {
     localStorage.setItem('language', language)
     setKey(uuid())
