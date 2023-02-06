@@ -6,6 +6,7 @@ import EndModal from "./EndModal"
 import Keyboard from "./Keyboard"
 import LangContext from "./LangContext"
 
+const SLOVAK_SPELLCHECK_URL = 'https://api.sapling.ai/api/v1/spellcheck'
 
 function Game() {
   const [guesses, setGuesses] = useState([])
@@ -14,14 +15,6 @@ function Game() {
   const [currentGuess, setCurrentGuess] = useState('')
   const [game, setGame] = useState(true)
   const [win, setWin] = useState(false)
-  const [emptyTiles, setEmptyTiles] = useState([
-    <Line key={uuid()} type='empty' />,
-    <Line key={uuid()} type='empty' />,
-    <Line key={uuid()} type='empty' />,
-    <Line key={uuid()} type='empty' />,
-    <Line key={uuid()} type='empty' />,
-    <Line key={uuid()} type='empty' />
-  ])
   const [guessTiles, setGuessTiles] = useState([])
   const [backspace, setBackspace] = useState(false)
   const [alertMessage, setAlertMessage] = useState('')
@@ -29,6 +22,9 @@ function Game() {
   const [dictionary, setDictionary] = useState([])
   const [statTxt, setStatText] = useState([])
   const [language,] = useContext(LangContext)
+  const idsForEmptyTiles = Array(6).fill(uuid())
+  const [emptyTiles, setEmptyTiles] = useState(
+    [...idsForEmptyTiles.map((id, i) => <Line key={id + i + ''} type='empty' />)])
 
   useEffect(() => {
     window.addEventListener('resize', () => setBadOrientation(window.innerHeight < window.innerWidth && window.innerHeight < 450))
@@ -60,6 +56,7 @@ function Game() {
     }
 
     fetchTheWord()
+
     fetchDictionary()
   }, [])
 
@@ -92,8 +89,32 @@ function Game() {
 
     const enterHandler = async () => {
 
+      if (language === 'skk') {
+        let result
+        const options = {
+          type: 'POST',
+          text: currentGuess,
+          key: 'UW6HJPOQBRD59BV8WKMUJP57Q23D828X',
+          session_id: uuid(),
+          min_length: 5,
+          multiple_edits: false,
+          lang: 'sk',
+          mode: 'no-cors'
+        }
+        try {
+          const resp = await fetch(SLOVAK_SPELLCHECK_URL, options)
+          result = await resp.json()
+          console.log(result)
+        } catch (e) {
+          print('Error: ', result)
+          print('Error: ', e)
+        }
+        console.log('ok')
+      }
+
+
       if (dictionary.indexOf(currentGuess) === -1) {
-        setAlertMessage('Nepoznám')
+        setAlertMessage('Nespisovné')
         setShake(true)
         return
       }

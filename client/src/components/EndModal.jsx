@@ -65,12 +65,11 @@ function EndModal({ win, game, statTxt, setAlertMessage, solution }) {
           {/* </span> */}
           <hr className="my-3 border-px border-[#f0f0f0] w-full" />
           <span className='text-neutral-600 mt-2'>
-            No co, dame ešte jedno?
+            Dáme ešte jedno?
           </span>
 
           <button className="btn" onClick={() => window.location.reload(true)}>
-            Skusim ešte raz no
-            <img src={restart} className='h-6 ml-3' />
+            Nová hra
           </button>
         </Modal>
       }
