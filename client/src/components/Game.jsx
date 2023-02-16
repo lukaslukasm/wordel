@@ -2,9 +2,8 @@ import { useContext, useEffect, useLayoutEffect, useState } from "react"
 import uuid from "react-uuid"
 import Line from "./Line"
 import Alert from "./Alert"
-import EndModal from "./EndModal"
 import Keyboard from "./Keyboard"
-import LangContext from "./LangContext"
+import StateContext from "./StateContext"
 
 const SLOVAK_SPELLCHECK_URL = 'https://api.sapling.ai/api/v1/spellcheck'
 
@@ -21,7 +20,7 @@ function Game() {
   const [shake, setShake] = useState(false)
   const [dictionary, setDictionary] = useState([])
   const [statTxt, setStatText] = useState([])
-  const [language,] = useContext(LangContext)
+  const [state, setState] = useContext(StateContext)
   const idsForEmptyTiles = Array(6).fill(uuid())
   const [emptyTiles, setEmptyTiles] = useState(
     [...idsForEmptyTiles.map((id, i) => <Line key={id + i + ''} type='empty' />)])
@@ -34,27 +33,26 @@ function Game() {
   useLayoutEffect(() => {
     const fetchTheWord = async () => {
       let promise
-      if (language === 'sk')
+      if (state.language === 'sk')
         promise = await fetch('/data/slovenske.txt')
       else
         promise = await fetch('/data/answers.txt')
       const result = await promise.text()
       let answers = [...result.split('\n')]
-      setTheWord(answers[Math.floor(Math.random() * answers.length)].toLowerCase())
+      let pickedWord = answers[Math.floor(Math.random() * answers.length)].toLowerCase()
+      setTheWord(pickedWord)
+      console.log('Vysledok neni ' + pickedWord.toUpperCase())
     }
-
     const fetchDictionary = async () => {
       let dict
-      if (language === 'sk')
+      if (state.language === 'sk')
         dict = await fetch('/data/slovnik.txt')
       else
         dict = await fetch('/data/guesses.txt')
       const result = await dict.text()
       setDictionary([...result.split('\n')])
     }
-
     fetchTheWord()
-
     fetchDictionary()
   }, [])
 
@@ -62,78 +60,51 @@ function Game() {
   useEffect(() => {
     setEmptyTiles(prev => prev.slice(0, -1))
     if (guesses.length >= 1)
-      setGuessTiles(prev => [...prev, <Line key={uuid()} word={guesses[guesses.length - 1]} type='guess' setStatText={setStatText} solution={theWord} />])
+      setGuessTiles(prev => [...prev, <Line win={win} key={uuid()} word={guesses[guesses.length - 1]} type='guess' setStatText={setStatText} solution={theWord} />])
   }, [guesses])
 
+  // shake ked je nesposivne slovo
   useEffect(() => {
     if (!shake)
       return
-
     const timer = setTimeout(() => setShake(false), 500)
     return () => clearTimeout(timer)
   }, [shake])
 
-  // klavesnica listener + enter handler
+  // Enter handler
+  const enterHandler = async () => {
+    if (dictionary.indexOf(currentGuess) === -1) {
+      setAlertMessage('Nespisovné')
+      setShake(true)
+      return
+    }
+    setGuesses(prev => {
+      if (prev.length === 5) {
+        setGame(false)
+        setAlertMessage(theWord)
+      }
+      return [...prev, currentGuess]
+    })
+    if (currentGuess === theWord) {
+      setAlertMessage('👏🏻 👏🏻 👏🏻')
+      setWin(true)
+      setGame(false)
+    }
+    setCurrentGuess('')
+    if (game)
+      return
+    const timer = setTimeout(() => setState(prev => ({ ...prev, isStatsOpen: true })), 2000)
+    return () => clearTimeout(timer)
+  }
+
+  // key press handler
   const keyPressedHandler = (e) => {
     if (!isAlpha(e.key) && e.key !== 'Enter' && e.key !== 'Backspace')
       return
-
     if (!game)
       return
-
     if (e.key === 'Enter' && currentGuess.length !== 5)
       return
-
-
-    const enterHandler = async () => {
-
-      if (language === 'skk') {
-        let result
-        const options = {
-          type: 'POST',
-          text: currentGuess,
-          key: 'UW6HJPOQBRD59BV8WKMUJP57Q23D828X',
-          session_id: uuid(),
-          min_length: 5,
-          multiple_edits: false,
-          lang: 'sk',
-          mode: 'no-cors'
-        }
-        try {
-          const resp = await fetch(SLOVAK_SPELLCHECK_URL, options)
-          result = await resp.json()
-          console.log(result)
-        } catch (e) {
-          print('Error: ', result)
-          print('Error: ', e)
-        }
-        console.log('ok')
-      }
-
-
-      if (dictionary.indexOf(currentGuess) === -1) {
-        setAlertMessage('Nespisovné')
-        setShake(true)
-        return
-      }
-
-
-      setGuesses(prev => {
-        if (prev.length === 5) {
-          setGame(false)
-          setAlertMessage(theWord)
-        }
-        return [...prev, currentGuess]
-      })
-      if (currentGuess === theWord) {
-        setAlertMessage('👏🏻 👏🏻 👏🏻')
-        setWin(true)
-        setGame(false)
-      }
-      setCurrentGuess('')
-
-    }
-
     switch (e.key) {
       case 'Enter':
         enterHandler()
@@ -147,8 +118,8 @@ function Game() {
         break;
     }
   }
-  useEffect(() => {
 
+  useEffect(() => {
     document.addEventListener('keydown', keyPressedHandler)
     return () => {
       document.removeEventListener('keydown', keyPressedHandler)
@@ -160,7 +131,6 @@ function Game() {
   }
 
   return (
-
     <main className="w-full items-center flex justify-center">
       {badOrientation === true || badOrientation === 't' ? (
         <h2 className="absolute text-center bottom-1/2 translate-y-1/2 left-0 right-0">
@@ -184,18 +154,16 @@ function Game() {
                   type='current'
                   backspace={backspace}
                   setBackspace={setBackspace}
-
+                  win={win}
                 />
               }
               {emptyTiles}
             </div>
-
             <Alert permanent={!game} message={alertMessage} setMessage={setAlertMessage} />
           </div>
           <Keyboard guesses={guesses} solution={theWord} keyPressedHandler={keyPressedHandler} />
         </>
       )}
-      <EndModal win={win} game={game} solution={theWord} setAlertMessage={setAlertMessage} statTxt={statTxt} />
     </main>
   )
 }

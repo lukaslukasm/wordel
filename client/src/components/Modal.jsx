@@ -13,13 +13,16 @@ function Modal({ setShowModal, children }) {
   }
 
   return (
-
+    // background
     <div
       className="modal-bg"
+      onClick={() => handleXClick()}
     >
       <AnimatePresence>
         {!hideModal &&
+
           <motion.div
+            onClick={(e) => e.stopPropagation()}
             className="modal"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 100, transition: { duration: 0.1 } }}

@@ -5,5 +5,5 @@ import * as dotenv from "dotenv"; //.env sa samo od seba neloadne. musi sa to ro
 dotenv.config(); // po tomto viem accessnut cely .env subor v mojom enviroente cez process.env
 
 app.listen(config.port, () => {
-	console.log("hello on http://localhost:3001");
+	console.log("hello there");
 });

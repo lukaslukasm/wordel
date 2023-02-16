@@ -6,13 +6,16 @@ export const createUser = async (req, res, next) => {
 	try {
 		const user = await prisma.user.create({
 			data: {
-				username: req.body.username,
+				name: req.body.name,
 				password: await hashPassw(req.body.password),
 				email: req.body.email,
+				icon: req.body.icon,
 			},
 		});
 		const token = createJWT(user);
-		res.json({ token });
+		res.status(200);
+		res.json({ token, user });
+		return;
 	} catch (error) {
 		error.type = "input"; //def err status je 500
 		next(error); //we have to trycatch evry single await bitch samostatne, a hocico dam ako param do next je automaticky err.
@@ -26,16 +29,18 @@ export const logIn = async (req, res, next) => {
 				email: req.body.email,
 			},
 		});
+
 		const isValid = await comparePassws(req.body.password, user.password);
 		if (!isValid) {
-			res.status(401);
-			res.json({ message: "wrong password" });
-			return;
+			const err = { type: "passw" };
+			throw err;
 		}
+
 		const token = createJWT(user);
-		res.json({ token });
+		res.status(200);
+		res.json({ token, user });
 	} catch (error) {
-		error.type = "auth";
+		if (!error.type) error.type = "email";
 		next(error);
 	}
 };

@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes arrowLeft {
+	0% {
+		transform: translateX(0px);
+	}
+	70% {
+		transform: translateX(10px);
+	}
+	100% {
+		transform: translateX(0px);
+	}
+}
+
 @layer components {
 	h1 {
 		@apply text-center font-bold text-[1.5rem] sm:text-[2rem];
@@ -39,7 +51,7 @@
 	}
 
 	html {
-		@apply bg-[#121213];
+		@apply bg-[#121212];
 	}
 
 	main {
@@ -64,9 +76,9 @@
 	}
 
 	.modal {
-		@apply bg-neutral-900 w-[min(100vw,400px)]
-		 flex drop-shadow-2xl max-w-full relative rounded-t-2xl px-6 py-4 flex-col
-		  justify-center items-center max-h-full;
+		@apply bg-neutral-800 w-[min(100vw,400px)]
+		 flex max-w-full relative rounded-t-2xl px-6 flex-col
+		  justify-center border-t-2 border-neutral-700 items-center max-h-full;
 	}
 
 	.keyboard-row {
@@ -98,7 +110,7 @@
 	}
 
 	.small-tile {
-		@apply w-10 h-10 flex rounded-sm justify-center items-center leading-none text-2xl;
+		@apply w-10 h-10 flex rounded-md justify-center items-center leading-none text-2xl;
 	}
 
 	.small-green-tile {
@@ -120,6 +132,22 @@
 		@apply tile bg-neutral-700;
 	}
 
+	.user-icon-tile {
+		@apply w-12 h-12 rounded-md;
+	}
+
+	.user-icon-tile[color="yellow"] {
+		@apply bg-yellow;
+	}
+
+	.user-icon-tile[color="green"] {
+		@apply bg-green-700;
+	}
+
+	.user-icon-tile[color="neutral"] {
+		@apply bg-neutral-700;
+	}
+
 	.board {
 		height: calc((6 * min(8.3vh, 64px)) + 36px);
 		/* max-height: calc((6 * 62px) + (5 * 6px)); */
@@ -129,15 +157,26 @@
 	}
 
 	.btn {
-		@apply bg-green-700 my-3 justify-center items-center w-56 inline-flex h-14 rounded-full;
+		@apply bg-green-700 hover:bg-green-600 transition-colors my-3 mt-1 cursor-pointer justify-center items-center w-56 inline-flex h-14 rounded-full;
+	}
+
+	.btn[disabled] {
+		@apply bg-neutral-700 cursor-default text-neutral-500;
 	}
 
 	.btn-share {
 		@apply btn bg-[#fafafa] w-56 text-black;
 	}
 
+	.box-shadow {
+		-webkit-box-shadow: inset -3px 3px 2px -1px rgba(255, 255, 255, 0.2),
+			inset 3px -3px 2px 0px rgba(0, 0, 0, 0.56);
+		box-shadow: inset -3px 3px 2px -1px rgba(255, 255, 255, 0.2),
+			inset 2px -2px 2px 0px rgba(0, 0, 0, 0.56);
+	}
+
 	.sidebar {
-		@apply z-50 px-6 py-3 select-none flex flex-col relative w-[320px] bg-neutral-900 h-full;
+		@apply z-50 px-3 py-3 select-none flex flex-col relative w-[320px] border-r border-neutral-800 bg-neutral-900 h-full;
 	}
 
 	.kategoria {
@@ -149,7 +188,7 @@
 	}
 
 	.slider-switcher {
-		@apply bg-neutral-500 z-0 absolute w-16 rounded-sm h-8 active:bg-neutral-600;
+		@apply bg-neutral-600 z-0 absolute w-16 rounded-sm h-8 active:bg-neutral-700;
 	}
 
 	.lang {
@@ -161,7 +200,68 @@
 	}
 
 	.menu-item {
-		@apply text-lg justify-center flex w-full items-center;
+		@apply text-lg justify-center flex w-full rounded-lg py-2 px-4 items-center;
+	}
+
+	.menu-item-link {
+		@apply menu-item transition-colors hover:bg-opacity-50 cursor-pointer hover:bg-neutral-800;
+	}
+
+	.menu-item-link:hover > .arrow {
+		animation: arrowLeft 0.2s ease-out;
+	}
+
+	.form-input {
+		@apply bg-opacity-0 w-64 font-normal text-base border-neutral-800 border-4 rounded-md bg-neutral-50 px-4 py-2;
+	}
+
+	::placeholder {
+		color: red;
+	}
+
+	.menu-btn {
+		@apply w-28 justify-center bg-neutral-700 cursor-pointer flex items-center h-8 hover:bg-neutral-600 transition-colors rounded-md;
+	}
+
+	:-ms-input-placeholder {
+		/* Internet Explorer 10-11 */
+		color: red;
+	}
+
+	::-ms-input-placeholder {
+		/* Microsoft Edge */
+		color: red;
+	}
+
+	label {
+		@apply text-sm text-left w-full ml-3 text-neutral-600 -mb-3;
+	}
+
+	label[for="saveUserLogIn"] {
+		@apply flex text-base text-ourwhite items-center;
+	}
+
+	.cekboks {
+		-webkit-appearance: none;
+		appearance: none;
+		@apply w-9 h-6 cursor-pointer;
+	}
+
+	.profile-card {
+		@apply flex-col shadow-xl border-neutral-700 border-t-2 bg-neutral-800 pt-6 pb-6 mt-2 mb-6 rounded-xl mx-11 flex items-center;
+	}
+
+	.cekboks:after {
+		content: "";
+		@apply rounded-md bg-neutral-800 absolute h-6 w-6 mb-0.5 border-4 border-neutral-800;
+	}
+
+	.login-wrap {
+		@apply flex flex-col select-none w-full justify-between items-center;
+	}
+
+	.cekboks:checked:after {
+		@apply bg-green-700;
 	}
 
 	@media (max-height: 800px) {

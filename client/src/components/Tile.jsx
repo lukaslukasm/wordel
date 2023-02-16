@@ -1,84 +1,48 @@
-import { useEffect, useLayoutEffect, useState } from "react"
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState } from "react"
+import { motion, useAnimationControls } from 'framer-motion'
 import uuid from "react-uuid"
 
-function Tile({ char, tileClass, index }) {
+function Tile({ char, tileClass, index, win }) {
 
-  const [result, setResult] = useState(true)
-  const [result2, setResult2] = useState(false)
+  const [tileClassState, setTileClassState] = useState('current-tile')
   const key = uuid()
-
-  const currentToFade = {
-    hidden: {
-      rotateX: 0,
-      transition: {
-        duration: 0.2,
-        type: 'easeOut'
-      }
-    },
-    show: {
-      rotateX: 90,
-      transition: {
-        duration: 0.2,
-        type: 'easeOut'
-      }
-    },
-    exit: {
-      rotateX: 90,
-      transition: {
-        duration: 0.2,
-        delay: index * 0.2,
-        type: 'easeOut'
-      }
-    },
-
-  }
-  const fadeToValidated = {
-    hidden: {
-      rotateX: 90,
-      transition: {
-        duration: 0.2,
-        type: 'easeOut'
-      }
-    },
-    show: {
-      rotateX: 0,
-      transition: {
-        duration: 0.2,
-        type: 'easeOut'
-      }
-    },
-  }
+  const controls = useAnimationControls()
 
   useEffect(() => {
+    controls.start({ rotateX: [90, 0], transition: { duration: 0.15 } });
+  }, [tileClassState])
 
-    setResult(false)
-
+  useEffect(() => {
+    if (win)
+      winSequence()
+    else
+      sequence()
   }, [])
 
+  const sequence = async () => {
+    await controls.start((i) => ({ rotateX: [0, 90], transition: { duration: 0.15, delay: 0.2 * i } }));
+    setTileClassState(tileClass)
+  }
+
+  const winSequence = async () => {
+    sequence()
+    const timer = setTimeout(() => {
+      // win wave
+      controls.start(i => ({ y: [0, -40, 0, -20, 0], transition: { duration: 0.5, delay: 0.04 * i } }));
+    }, 1100)
+    return () => clearTimeout(timer)
+  }
 
   return (
-    <AnimatePresence>
-      {result ? (
-        <motion.span
-          key={key}
-          variants={currentToFade}
-          className="current-tile"
-          exit='exit'
-          onAnimationComplete={() => setResult2(true)}>
-          {char}
-        </motion.span>
-      ) : (result2 && (
-        <motion.span
-          key={uuid()}
-          initial='hidden'
-          animate='show'
-          variants={fadeToValidated}
-          className={tileClass}>
-          {char}
-        </motion.span>
-      ))}
-    </AnimatePresence>
+    <motion.div
+      key={key}
+      custom={index}
+      // initial={{ rotateX: 90 }}
+      className={tileClassState}
+      animate={controls}
+    >
+      {char}
+    </motion.div>
   )
 }
 export default Tile

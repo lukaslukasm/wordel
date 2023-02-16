@@ -1,25 +1,21 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import uuid from "react-uuid"
 import Game from "./components/Game"
 import Header from "./components/Header"
-import LangContext from "./components/LangContext"
+import StateContext from "./components/StateContext"
 
 function App() {
-  const [language, setLanguage] = useState(localStorage.getItem('language') || 'sk')
   const [key, setKey] = useState(uuid())
+  const [state, setState] = useContext(StateContext)
 
   useEffect(() => {
-    localStorage.setItem('language', language)
     setKey(uuid())
-  }, [language])
-
+  }, [state.language])
 
   return (
     <div className="max-h-screen flex flex-col">
-      <LangContext.Provider value={[language, setLanguage]}>
-        <Header />
-        <Game key={key} />
-      </LangContext.Provider>
+      <Header />
+      <Game key={key} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getUser, getUsers, updateUser } from "./handlers/user";
-import { validationResult, body } from "express-validator";
+// import { validationResult, body } from "express-validator";
 
 const router = Router();
 

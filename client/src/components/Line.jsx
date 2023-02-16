@@ -1,42 +1,19 @@
 import { useEffect, useState } from "react"
 import uuid from "react-uuid"
-import { motion } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 import Tile from "./Tile"
 
-function Line({ word, solution, type, error, backspace, setBackspace, setStatText }) {
+function Line({ word, solution, type, error, backspace, setBackspace, setStatText, win }) {
   const [tiles, setTiles] = useState([])
   let ids = []
   let arr = []
+  const controls = useAnimationControls()
 
-  const wrapVariants = {
-    hidden: {
-      x: 0,
-      transition: {
-        duration: 0.1,
-        type: "spring",
-        stiffness: 0
-      }
-    },
-    show: {
-      x: [0, 20, -20, 10, -10, 5, -5, 0],
-      transition: {
-        duration: 0.3,
-        type: "spring",
-        stiffness: 0,
-        staggerChildren: 0.1
-      }
-    }
-  }
-
-  const lastGuessVariants = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 5
-      }
-    }
-  }
+  useEffect(() => {
+    if (!error)
+      return
+    controls.start({ x: [0, -15, 15, -10, 10, -5, 5, 0], transition: { duration: 0.2 } })
+  }, [error])
 
   useEffect(() => {
     let WIPsolution = solution
@@ -48,12 +25,10 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
           WIPsolution = WIPsolution.replace(WIPword[i], ' ')
           WIPword = WIPword.replace(word[i], '_')
           statTxt[i] = '🟩'
-
           arr[i] = { char: word[i], tileClass: 'green-tile' }
         }
       }
     }
-
     for (let i = 0; i < 5; i++) {
       switch (type) {
         case 'guess':
@@ -93,25 +68,19 @@ function Line({ word, solution, type, error, backspace, setBackspace, setStatTex
     if (backspace) setBackspace(false)
     setTiles(arr)
     if (type === 'guess') {
-
-
       setStatText(prev => [...prev, statTxt])
     }
   }, [word])
 
   return (
-
     <motion.div
-      variants={error ? wrapVariants : lastGuessVariants}
-      initial='hidden'
-      animate='show'
-      exit='exit'
+      animate={controls}
       className={`flex mt-1.5 flex-row gap-1.5 ${type === 'guess' ? 'justify-self-start' : 'justify-self-end'}`}
     >
       {type !== 'guess' ?
         tiles
         :
-        tiles.map((tile, i) => <Tile key={uuid()} char={tile.char} index={i} tileClass={tile.tileClass} />)
+        tiles.map((tile, i) => <Tile key={uuid()} win={win} char={tile.char} index={i} tileClass={tile.tileClass} />)
       }
     </motion.div>
 
