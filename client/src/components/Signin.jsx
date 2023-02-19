@@ -29,7 +29,7 @@ function Signin() {
         throw { message: "tento email nie je validný", type: 'email' }
       if (nickname.length > 16)
         throw { message: "nickname môže mať max 16 znakov", type: 'name' }
-      const req = await fetch('wordelgame-api.fly.dev/signin', {
+      const req = await fetch(import.meta.env.VITE_API_URL + '/signin', {
         method: 'POST',
         mode: 'cors',
         credentials: 'same-origin',

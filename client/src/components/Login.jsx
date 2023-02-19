@@ -23,10 +23,10 @@ function Login() {
     setLoading(true)
     setErrMsg(EMPTY_ERR)
     try {
-      const req = await fetch('wordelgame-api.fly.dev/login', {
+      const req = await fetch(import.meta.env.VITE_API_URL + '/login', {
         method: 'POST',
-        mode: 'cors',
-        credentials: 'same-origin',
+        mode: 'no-cors',
+
         headers: {
           'Content-Type': 'application/json'
         },

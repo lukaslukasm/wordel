@@ -4,7 +4,7 @@ async function getUserInfo(jwt) {
   const id = JSON.parse(atob(details)).id
   let res
   try {
-    const req = await fetch(`wordelgame-api.fly.dev/api/user/${id}`, {
+    const req = await fetch(import.meta.env.VITE_API_URL + `/api/user/${id}`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'same-origin',

@@ -29,6 +29,8 @@ LABEL fly_launch_runtime="nodejs"
 COPY --from=builder /root/.volta /root/.volta
 COPY --from=builder /app /app
 
+EXPOSE port
+
 WORKDIR /app
 ENV NODE_ENV production
 ENV PATH /root/.volta/bin:$PATH

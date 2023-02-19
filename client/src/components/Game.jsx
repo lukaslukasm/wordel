@@ -71,6 +71,29 @@ function Game() {
     return () => clearTimeout(timer)
   }, [shake])
 
+  const increaseScore = () => {
+    switch (guesses.length) {
+      case 1:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry1: prev.user.winsOnTry1 + 1 } }))
+        break;
+      case 2:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry2: prev.user.winsOnTry2 + 1 } }))
+        break;
+      case 3:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry3: prev.user.winsOnTry3 + 1 } }))
+        break;
+      case 4:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry4: prev.user.winsOnTry4 + 1 } }))
+        break;
+      case 5:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry5: prev.user.winsOnTry5 + 1 } }))
+        break;
+      case 6:
+        setState(prev => ({ ...prev, user: { ...prev.user, winsOnTry6: prev.user.winsOnTry6 + 1 } }))
+        break;
+    }
+  }
+
   // Enter handler
   const enterHandler = async () => {
     if (dictionary.indexOf(currentGuess) === -1) {
@@ -88,11 +111,14 @@ function Game() {
     if (currentGuess === theWord) {
       setAlertMessage('👏🏻 👏🏻 👏🏻')
       setWin(true)
+      setState(prev => ({ ...prev, user: { ...prev.user, nOfWins: prev.user.nOfWins + 1 } }))
       setGame(false)
+      increaseScore()
     }
     setCurrentGuess('')
     if (game)
       return
+    setState(prev => ({ ...prev, user: { ...prev.user, nOfGames: prev.user.nOfGames + 1 } }))
     const timer = setTimeout(() => setState(prev => ({ ...prev, isStatsOpen: true })), 2000)
     return () => clearTimeout(timer)
   }

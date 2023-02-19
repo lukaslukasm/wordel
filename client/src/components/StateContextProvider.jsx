@@ -36,7 +36,7 @@ function StateContextProvider({ children }) {
     const updateUser = async () => {
       try {
         let jwt = localStorage.getItem('jwt') || sessionStorage.getItem('jwt')
-        const req = await fetch(`wordelgame-api.fly.dev/api/user/${state.user.id}`, {
+        const req = await fetch(import.meta.env.VITE_API_URL + `/api/user/${state.user.id}`, {
           method: 'PUT',
           mode: 'cors',
           credentials: 'same-origin',
