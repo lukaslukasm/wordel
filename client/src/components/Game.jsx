@@ -111,14 +111,16 @@ function Game() {
     if (currentGuess === theWord) {
       setAlertMessage('👏🏻 👏🏻 👏🏻')
       setWin(true)
-      setState(prev => ({ ...prev, user: { ...prev.user, nOfWins: prev.user.nOfWins + 1 } }))
+      if (state.user)
+        setState(prev => ({ ...prev, user: { ...prev.user, nOfWins: prev.user.nOfWins + 1 } }))
       setGame(false)
       increaseScore()
     }
     setCurrentGuess('')
     if (game)
       return
-    setState(prev => ({ ...prev, user: { ...prev.user, nOfGames: prev.user.nOfGames + 1 } }))
+    if (state.user)
+      setState(prev => ({ ...prev, user: { ...prev.user, nOfGames: prev.user.nOfGames + 1 } }))
     const timer = setTimeout(() => setState(prev => ({ ...prev, isStatsOpen: true })), 2000)
     return () => clearTimeout(timer)
   }
