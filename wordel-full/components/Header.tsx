@@ -37,7 +37,7 @@ function Header() {
 				<span className='bg-ourwhite h-[3px] w-6 rounded-full' />
 				<span className='bg-ourwhite h-[3px] w-6 rounded-full' />
 			</button>
-			<h1 className='flex pl-12 items-center gap-1 sm:gap-2'>
+			<h1 className='flex pl-10 items-center gap-1 sm:gap-2'>
 				Wordeľ
 				{state.language === "sk" ? (
 					<Image src={flagSk} alt='' className='w-6 sm:w-8 inline-block' />
