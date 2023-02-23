@@ -27,7 +27,7 @@ function Login() {
 		try {
 			if (!isEmailValid(email))
 				throw { message: "tento email nie je validný", type: "email" };
-			const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
+			const req = await fetch(`/api/login`, {
 				method: "POST",
 				mode: "cors",
 				credentials: "same-origin",

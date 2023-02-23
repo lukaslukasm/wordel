@@ -33,7 +33,7 @@ function Signin() {
 				throw { message: "tento email nie je validný", type: "email" };
 			if (nickname.length > 16)
 				throw { message: "nickname môže mať max 16 znakov", type: "name" };
-			const req = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signin`, {
+			const req = await fetch(`/api/signin`, {
 				method: "POST",
 				mode: "cors",
 				credentials: "same-origin",
