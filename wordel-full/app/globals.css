@@ -29,8 +29,9 @@
 		@apply text-ourwhite font-bold;
 	}
 
-	html {
-		@apply bg-[#121212];
+	html,
+	body {
+		background-color: #181818;
 	}
 
 	main {
