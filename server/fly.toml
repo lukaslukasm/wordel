@@ -1,12 +1,12 @@
-# fly.toml file generated for wordelgame-api on 2023-02-06T23:36:01Z
+# fly.toml file generated for wordel-api on 2023-02-16T14:42:05Z
 
-app = "wordelgame-api"
+app = "wordel-api"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
 [env]
-  PORT = "8080"
+port= 8080
 
 [experimental]
   auto_rollback = true
