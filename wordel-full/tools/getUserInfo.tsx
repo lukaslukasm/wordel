@@ -4,18 +4,15 @@ async function getUserInfo(jwt: string | null) {
 	const id = JSON.parse(atob(details)).id;
 	let res;
 	try {
-		const req = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/user/${id}`,
-			{
-				method: "GET",
-				mode: "cors",
-				credentials: "same-origin",
-				headers: {
-					Authorization: `Bearer ${jwt}`,
-					"Content-Type": "application/json",
-				},
-			}
-		);
+		const req = await fetch(`/api/user/${id}`, {
+			method: "GET",
+			mode: "cors",
+			credentials: "same-origin",
+			headers: {
+				Authorization: `Bearer ${jwt}`,
+				"Content-Type": "application/json",
+			},
+		});
 		res = await req.json();
 		if (req.status !== 200) throw new Error("error getting user from database");
 		return res.data;
