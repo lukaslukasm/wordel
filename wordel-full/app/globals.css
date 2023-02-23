@@ -156,7 +156,7 @@
 	}
 
 	.sidebar {
-		@apply z-50 px-3 py-3 select-none flex flex-col relative w-[320px] border-r border-neutral-800 bg-neutral-900 h-full;
+		@apply z-50 px-3 select-none flex flex-col relative w-[320px] border-r border-neutral-800 bg-neutral-900 h-full max-h-full;
 	}
 
 	.kategoria {
