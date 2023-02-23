@@ -260,6 +260,7 @@
 		font-size: 1rem;
 		-webkit-text-fill-color: white;
 		-webkit-box-shadow: 0 0 0px 1000px rgb(18 18 18) inset;
+		background-clip: content-box !important;
 	}
 
 	.cekboks:checked:after {
