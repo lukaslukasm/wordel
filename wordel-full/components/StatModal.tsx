@@ -15,7 +15,7 @@ function StatModal({
 	setAlertMessage?: Function;
 	setIsStatsOpen: Function;
 }) {
-	const [state, setState] = useContext(StateContext);
+	const [state, stateDispatch] = useContext(StateContext);
 
 	// const stats = `
 	// Wordeľ
@@ -45,8 +45,12 @@ function StatModal({
 						<div className='w-full'>
 							<div className='flex w-full mb-6 justify-around'>
 								<span className='flex flex-col items-center'>
-									<p className='kategoria'>Odohrané Hry</p>
+									<p className='kategoria'>Odohrané</p>
 									<p className=' text-5xl'>{state.user.nOfGames}</p>
+								</span>
+								<span className='flex flex-col items-center'>
+									<p className='kategoria'>Vyhrané</p>
+									<p className=' text-5xl'>{state.user.nOfWins}</p>
 								</span>
 								<span className='flex flex-col items-center'>
 									<p className='kategoria'>Úspešnosť</p>
@@ -56,7 +60,7 @@ function StatModal({
 													(state.user.nOfWins / state.user.nOfGames) * 100
 											  )
 											: 0}
-										%
+										<span className='text-xl'>%</span>
 									</p>
 								</span>
 							</div>
@@ -102,7 +106,7 @@ function StatModal({
 				<button
 					className='btn'
 					onClick={() => {
-						setState((prev) => ({ ...prev, restart: !prev.restart }));
+						stateDispatch({ type: "restart" });
 						setIsStatsOpen(false);
 					}}
 				>

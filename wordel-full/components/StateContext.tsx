@@ -1,8 +1,9 @@
 import { createContext } from "react";
-import { state } from "../types/types";
+import { reducerAction, state } from "../types/types";
 
-const StateContext = createContext<
-	[state, React.Dispatch<React.SetStateAction<state>>]
->([{} as state, () => undefined]);
+const StateContext = createContext<[state, React.Dispatch<reducerAction>]>([
+	{} as state,
+	() => undefined,
+]);
 
 export default StateContext;

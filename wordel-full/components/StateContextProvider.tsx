@@ -1,71 +1,50 @@
 "use client";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useReducer } from "react";
 import { ReactNode } from "react";
-import getUserInfo from "../tools/getUserInfo";
 import StateContext from "./StateContext";
 import usePrevious from "../hooks/usePrevious";
 import * as types from "../types/types";
+import stateReducer from "@/hooks/stateReducer";
+import fetchUser from "@/tools/fetchUser";
+import updateUser from "@/tools/updateUser";
+
+const initState = {
+	language: "sk",
+	user: null,
+	isStatsOpen: false,
+	isHelpOpen: false,
+	restart: false,
+	lastUpdated: {} as types.lastUpdated,
+	alert: { message: "", permanent: false } as types.alert,
+} as types.state;
 
 function StateContextProvider({ children }: { children: ReactNode }) {
-	const [state, setState] = useState({
-		language: "sk",
-		user: null,
-		isStatsOpen: false,
-		isHelpOpen: false,
-	} as types.state);
+	const [state, stateDispatch] = useReducer(stateReducer, initState);
 
 	const prevUser = usePrevious(state.user);
 
-	const fetchUser = async () => {
-		if (
-			localStorage.getItem("jwt") !== null ||
-			sessionStorage.getItem("jwt") !== null
-		) {
-			let user: types.user;
-			if (localStorage.getItem("jwt") !== null)
-				user = await getUserInfo(localStorage.getItem("jwt"));
-			else user = await getUserInfo(sessionStorage.getItem("jwt"));
-			setState((prev) => ({
-				...prev,
-				language: user.language as types.Lang,
-				user,
-			}));
-		}
-	};
+	useLayoutEffect(() => {
+		const logInFromJWT = async () => {
+			const user = await fetchUser();
+			if (!user) return;
+			stateDispatch({ type: "user", value: user });
+			stateDispatch({
+				type: "alert",
+				value: { message: "Vitaj späť!", instant: true },
+			});
+		};
 
-	useEffect(() => {
-		fetchUser();
+		logInFromJWT();
 	}, []);
 
 	useEffect(() => {
-		if (state.user === null || state.user === undefined) return;
-		if (prevUser === null) return;
-		updateUser();
+		if (!state.user || !prevUser) return;
+		updateUser(prevUser, state, stateDispatch);
 		//eslint-disable-next-line
-	}, [state.user, state.language]);
-
-	const updateUser = async () => {
-		try {
-			if (!state.user) throw { message: "no user" };
-			let jwt = localStorage.getItem("jwt") || sessionStorage.getItem("jwt");
-			const req = await fetch(`/api/user/${state.user.id}`, {
-				method: "PUT",
-				mode: "cors",
-				credentials: "same-origin",
-				headers: {
-					Authorization: `Bearer ${jwt}`,
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ ...state.user, language: state.language }),
-			});
-			if (!req.ok) throw new Error("Error updating the user.");
-		} catch (error: any) {
-			console.log(error.message);
-		}
-	};
+	}, [state.user]);
 
 	return (
-		<StateContext.Provider value={[state, setState]}>
+		<StateContext.Provider value={[state, stateDispatch]}>
 			{children}
 		</StateContext.Provider>
 	);

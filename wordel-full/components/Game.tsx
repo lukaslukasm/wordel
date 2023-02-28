@@ -8,20 +8,19 @@ import StateContext from "./StateContext";
 
 function Game() {
 	const [guesses, setGuesses] = useState([] as string[]);
-	const [theWord, setTheWord] = useState("");
+	const [theWord, setTheWord] = useState<string>("");
 	const [badOrientation, setBadOrientation] = useState<boolean>(false);
-	const [currentGuess, setCurrentGuess] = useState("");
+	const [currentGuess, setCurrentGuess] = useState<string>("");
 	const [game, setGame] = useState(true);
 	const [win, setWin] = useState(false);
 	const [guessTiles, setGuessTiles] = useState<React.ReactElement<any, any>[]>(
 		[]
 	);
 	const [backspace, setBackspace] = useState(false);
-	const [alertMessage, setAlertMessage] = useState("");
 	const [shake, setShake] = useState(false);
 	const [dictionary, setDictionary] = useState([] as string[]);
-	const [statTxt, setStatText] = useState([]);
-	const [state, setState] = useContext(StateContext);
+
+	const [state, stateDispatch] = useContext(StateContext);
 	const [emptyTiles, setEmptyTiles] = useState<React.ReactElement<any, any>[]>(
 		[]
 	);
@@ -56,7 +55,6 @@ function Game() {
 					key={uuid()}
 					word={guesses[guesses.length - 1]}
 					type='guess'
-					setStatText={setStatText}
 					solution={theWord}
 				/>,
 			]);
@@ -73,28 +71,16 @@ function Game() {
 	// stats
 	useEffect(() => {
 		if (game) return;
-		if (!state.user) return;
 		if (win) {
-			let wins = state.user.winsDistribution;
-			wins[guesses.length - 1] += 1;
-			setState((prev) => ({
-				...prev,
-				user: prev.user && {
-					...prev.user,
-					nOfGames: prev.user.nOfGames + 1,
-					nOfWins: prev.user.nOfWins + 1,
-					winsDistribution: wins,
-				},
-			}));
+			stateDispatch({ type: "win", try: guesses.length });
 		} else {
-			setState((prev) => ({
-				...prev,
-				user: prev.user && {
-					...prev.user,
-					nOfGames: prev.user.nOfGames + 1,
-				},
-			}));
+			stateDispatch({ type: "loss", value: theWord });
 		}
+		const timer = setTimeout(
+			() => stateDispatch({ type: "toggleStats" }),
+			2000
+		);
+		return () => clearTimeout(timer);
 		//eslint-disable-next-line
 	}, [game]);
 
@@ -107,7 +93,7 @@ function Game() {
 		let pickedWord =
 			answers[Math.floor(Math.random() * answers.length)].toLowerCase();
 		setTheWord(pickedWord);
-		console.log("Vysledok neni " + pickedWord.toUpperCase());
+		// console.log("Vysledok neni " + pickedWord.toUpperCase());
 	};
 	const fetchDictionary = async () => {
 		let dict;
@@ -120,26 +106,27 @@ function Game() {
 	// Enter handler
 	const enterHandler = async () => {
 		if (dictionary.indexOf(currentGuess) === -1) {
-			setAlertMessage("Nespisovné");
+			stateDispatch({
+				type: "alert",
+				value: { message: "Nespisovné", instant: true },
+			});
 			setShake(true);
 			return;
 		}
 		setGuesses((prev) => {
 			if (prev.length === 5) {
 				setGame(false);
-				setAlertMessage(theWord);
 			}
 			return [...prev, currentGuess];
 		});
 		if (currentGuess === theWord) {
-			setAlertMessage("👏🏻 👏🏻 👏🏻");
 			setWin(true);
 			setGame(false);
 		}
 		setCurrentGuess("");
 		if (guesses.length !== 5 && currentGuess !== theWord) return;
 		const timer = setTimeout(
-			() => setState((prev) => ({ ...prev, isStatsOpen: true })),
+			() => stateDispatch({ type: "isStatsOpen" }),
 			2000
 		);
 		return () => clearTimeout(timer);
@@ -187,6 +174,7 @@ function Game() {
 			) : (
 				<>
 					{/* board */}
+					<Alert />
 					<div className='board'>
 						{guesses && (
 							<div className='flex flex-col justify-start'>{guessTiles}</div>
@@ -205,11 +193,6 @@ function Game() {
 							)}
 							{emptyTiles}
 						</div>
-						<Alert
-							permanent={!game}
-							message={alertMessage}
-							setMessage={setAlertMessage}
-						/>
 					</div>
 					<Keyboard
 						guesses={guesses}

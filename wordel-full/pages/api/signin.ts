@@ -1,6 +1,5 @@
 import prisma from "@/db";
 import { createJWT, hashPassw } from "@/modules/auth";
-import { Data } from "@/types/types";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function signin(

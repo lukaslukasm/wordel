@@ -17,7 +17,7 @@ function Login() {
 	const [password, setPassword] = useState("");
 	const [saveLogIn, setSaveLogIn] = useState(false);
 	const emailRef = useRef<HTMLElement>();
-	const [, setUser] = useContext(StateContext);
+	const [, stateDispatch] = useContext(StateContext);
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -46,11 +46,11 @@ function Login() {
 			} else {
 				sessionStorage.setItem("jwt", res.token);
 			}
-			setUser((prev) => ({
-				...prev,
-				language: res.user.language,
-				user: res.user,
-			}));
+			stateDispatch({ type: "user", value: res.user });
+			stateDispatch({
+				type: "alert",
+				value: { message: "Vitaj späť!", instant: true },
+			});
 			router.push("/");
 		} catch (error: any) {
 			setLoading(false);

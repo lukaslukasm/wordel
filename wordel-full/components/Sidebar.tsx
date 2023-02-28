@@ -2,18 +2,17 @@ import x from "/public/assets/x.png";
 import jazyk from "/public/assets/jazyk.png";
 import Switcher from "./Switcher";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useContext, useState, useLayoutEffect } from "react";
+import { useEffect, useContext, useState } from "react";
 import StateContext from "./StateContext";
 import uuid from "react-uuid";
 import barChart from "/public/assets/bar-chart.png";
 import arrow from "/public/assets/arrow.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { state, Lang } from "@/types/types";
 
 function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 	const [show, setShow] = useState(true);
-	const [state, setState] = useContext(StateContext);
+	const [state, stateDispatch] = useContext(StateContext);
 	const { language, user, isStatsOpen } = state;
 	const [userIcon, setUserIcon] = useState(Array(9).fill("neutral"));
 
@@ -31,7 +30,7 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 	const handleSignOut = () => {
 		if (localStorage.getItem("jwt")) localStorage.removeItem("jwt");
 		if (sessionStorage.getItem("jwt")) sessionStorage.removeItem("jwt");
-		setState((prev) => ({ ...prev, user: null, language: "sk" as Lang }));
+		stateDispatch({ type: "user", value: null });
 	};
 
 	// nastavenie usrovej ikony na karticku v =
@@ -107,7 +106,7 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 								<span
 									onClick={() => {
 										setShow(false);
-										setState((prev) => ({ ...prev, isStatsOpen: true }));
+										stateDispatch({ type: "toggleStats" });
 									}}
 									className='w-full text-left mt-0.5'
 								>
@@ -122,7 +121,7 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 								<span
 									onClick={() => {
 										setShow(false);
-										setState((prev) => ({ ...prev, isHelpOpen: true }));
+										stateDispatch({ type: "toggleHelp" });
 									}}
 									className='w-full text-left mt-0.5'
 								>

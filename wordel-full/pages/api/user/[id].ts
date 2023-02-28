@@ -1,13 +1,15 @@
 import prisma from "@/db";
-import { Data } from "@/types/types";
+import { hashPassw, protect } from "@/modules/auth";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	// GET
 	if (req.method === "GET") {
 		try {
+			protect(req, res);
 			const user = await prisma.user.findUnique({
 				where: { id: req.query.id as string },
 			});
@@ -19,13 +21,20 @@ export default async function handler(
 			res.status(400);
 			res.json({ ...error });
 		}
+
+		// UPDATE
 	} else if (req.method === "PUT") {
 		try {
+			protect(req, res);
+			let load;
+			if (req.body.password)
+				load = { password: await hashPassw(req.body.password) };
+			else load = { ...req.body };
 			const updated = await prisma.user.update({
 				where: {
 					id: req.query.id as string,
 				},
-				data: { ...req.body },
+				data: load,
 			});
 			res.status(200);
 			res.json({ data: updated });

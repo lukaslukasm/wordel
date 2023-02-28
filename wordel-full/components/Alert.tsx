@@ -1,26 +1,31 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import StateContext from "./StateContext";
 
-const Alert = ({
-	message,
-	permanent,
-	setMessage,
-}: {
-	message: string;
-	permanent: boolean;
-	setMessage: any;
-}) => {
+const Alert = () => {
 	const [showAlert, setShowAlert] = useState(false);
+	const [state, stateDispatch] = useContext(StateContext);
 
 	useEffect(() => {
-		if (!message) return;
-		if (permanent) {
+		if (state.alert.message === "") return;
+		if (state.alert.permanent) {
 			const timer = setTimeout(() => {
 				setShowAlert(true);
 			}, 1200);
+			return () => {
+				clearTimeout(timer);
+			};
+		} else if (!state.alert.instant) {
+			const timer = setTimeout(() => {
+				setShowAlert(true);
+			}, 1600);
 			const timer2 = setTimeout(() => {
 				setShowAlert(false);
-			}, 2500);
+				stateDispatch({
+					type: "alert",
+					value: { message: "" },
+				});
+			}, 2600);
 			return () => {
 				clearTimeout(timer);
 				clearTimeout(timer2);
@@ -29,12 +34,16 @@ const Alert = ({
 			setShowAlert(true);
 			const timer = setTimeout(() => {
 				setShowAlert(false);
-				setMessage("");
+				stateDispatch({
+					type: "alert",
+					value: { message: "" },
+				});
 			}, 1000);
 			return () => clearTimeout(timer);
 		}
+
 		//eslint-disable-next-line
-	}, [message]);
+	}, [state.alert]);
 
 	return (
 		<>
@@ -46,7 +55,7 @@ const Alert = ({
 						exit={{ opacity: 0, y: -10, transition: { duration: 0.1 } }}
 						className='alert'
 					>
-						{message}
+						{state.alert.message}
 					</motion.div>
 				)}
 			</AnimatePresence>

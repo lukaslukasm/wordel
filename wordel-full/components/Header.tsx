@@ -11,22 +11,11 @@ import { state } from "@/types/types";
 
 function Header() {
 	const [showMenu, setShowMenu] = useState(false);
-	const [state, setState] =
-		useContext<[state, React.Dispatch<React.SetStateAction<state>>]>(
-			StateContext
-		);
+	const [state, stateDispatch] = useContext(StateContext);
 
-	const toggleStats = (option?: boolean) => {
-		if (!option)
-			setState((prev: state) => ({ ...prev, isStatsOpen: !prev.isStatsOpen }));
-		else setState((prev: state) => ({ ...prev, isStatsOpen: option }));
-	};
+	const toggleStats = () => stateDispatch({ type: "toggleStats" });
 
-	const toggleHelp = (option?: boolean) => {
-		if (!option)
-			setState((prev) => ({ ...prev, isHelpOpen: !prev.isHelpOpen }));
-		else setState((prev) => ({ ...prev, isHelpOpen: option }));
-	};
+	const toggleHelp = () => stateDispatch({ type: "toggleHelp" });
 
 	return (
 		<header>
@@ -47,7 +36,7 @@ function Header() {
 			</h1>
 			<div className='flex gap-4'>
 				<button
-					onClick={() => toggleStats(true)}
+					onClick={() => toggleStats()}
 					className='flex invert opacity-95 font-black justify-center items-center text-2xl rounded-md w-5 h-8'
 				>
 					<Image src={barChart} alt='' />

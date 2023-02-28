@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import StateContext from "./StateContext";
-import * as types from "../types/types";
 
 function Switcher() {
-	const [state, setState] =
-		useContext<
-			[types.state, React.Dispatch<React.SetStateAction<types.state>>]
-		>(StateContext);
+	const [state, stateDispatch] = useContext(StateContext);
 
 	const sliderVariants = {
 		i: { x: 2 },
@@ -19,12 +15,7 @@ function Switcher() {
 
 	return (
 		<button
-			onClick={() =>
-				setState((prev) => ({
-					...prev,
-					language: (prev.language === "sk" ? "en" : "sk") as types.Lang,
-				}))
-			}
+			onClick={() => stateDispatch({ type: "lang" })}
 			className='w-34 relative rounded-md p-1 h-10 bg-neutral-800 inline-flex'
 		>
 			<motion.span

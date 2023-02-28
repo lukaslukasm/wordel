@@ -14,7 +14,7 @@ function Chart() {
 					let w = `calc(${(80 / maxNumber) * val}% + 25px)`;
 					return (
 						<span key={i} className='flex gap-1 items-center'>
-							<p className='kategoria m-0 text-neutral-200'>{i + 1}.</p>
+							<p className='kategoria m-0 mr-1 text-neutral-200'>{i + 1}.</p>
 							<motion.span
 								className='bg-neutral-600 py-0.5 px-2 text-right'
 								style={{ width: w }}

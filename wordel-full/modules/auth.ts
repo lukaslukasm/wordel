@@ -4,8 +4,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 type user = { id: string; name: string; email: string };
 
-export const hashPassw = (passw: string) => {
-	return bcrypt.hash(passw, 2);
+export const hashPassw = async (passw: string) => {
+	return await bcrypt.hash(passw, 2);
 };
 
 export const comparePassws = (passw: string, hash: string | null) => {
@@ -30,25 +30,20 @@ export const protect = (req: NextApiRequest, res: NextApiResponse) => {
 	const bearer = req.headers.authorization;
 
 	if (!bearer) {
-		res.status(401);
-		res.json({ message: "not authorized" });
-		return;
+		throw new Error("not authorized");
 	}
 
 	const [, token] = bearer.split(" ");
 
 	if (!token) {
-		res.status(401);
-		res.json({ message: "not valid token" });
-		return;
+		throw new Error("not valid token");
 	}
 
 	try {
 		const user = jwt.verify(token, process.env.JWT_SECRET as Secret);
-		req.body.user = user;
-		return;
-	} catch (error) {
-		res.status(401);
-		res.json({ message: "no" });
+		console.log(user);
+		return user;
+	} catch (error: any) {
+		throw new Error(error);
 	}
 };

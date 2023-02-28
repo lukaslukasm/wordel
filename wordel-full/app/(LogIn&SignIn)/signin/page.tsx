@@ -2,16 +2,15 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import generateIcon from "../../../tools/generateIcon";
 import CustomInput from "../../../components/CustomInput";
 import StateContext from "../../../components/StateContext";
 import SubpageHeader from "../../../components/SubpageHeader";
 import { MutatingDots } from "react-loader-spinner";
 import isEmailValid from "@/tools/isEmailValid";
+import { generateIcon } from "../../../tools/generateUniqueIcon";
+import { icon } from "@/types/types";
 
 const EMPTY_ERR = { message: "", type: "" };
-const VALID_EMAIL_REGEX =
-	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 function Signin() {
 	const router = useRouter();
@@ -21,7 +20,7 @@ function Signin() {
 	const [password, setPassword] = useState("");
 	const [saveLogIn, setSaveLogIn] = useState(false);
 	const nicknameRef = useRef<HTMLElement>();
-	const [, setUser] = useContext(StateContext);
+	const [, stateDispatch] = useContext(StateContext);
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,7 +43,7 @@ function Signin() {
 					name: nickname,
 					email: email,
 					password: password,
-					icon: generateIcon(),
+					icon: generateIcon() as icon,
 				}),
 			});
 			const res = await req.json();
@@ -54,7 +53,11 @@ function Signin() {
 			} else {
 				sessionStorage.setItem("jwt", res.token);
 			}
-			setUser((prev) => ({ ...prev, user: res.user }));
+			stateDispatch({ type: "user", value: res.user });
+			stateDispatch({
+				type: "alert",
+				value: { message: "Vitaj! 👋 👋🏻 👋🏾", instant: true },
+			});
 			router.push("/");
 		} catch (error: any) {
 			setErrMsg(error);

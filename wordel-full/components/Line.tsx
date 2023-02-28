@@ -10,7 +10,6 @@ function Line({
 	error,
 	backspace,
 	setBackspace,
-	setStatText,
 	win,
 }: {
 	word?: string;
@@ -19,11 +18,9 @@ function Line({
 	error?: boolean;
 	backspace?: boolean;
 	setBackspace?: Function;
-	setStatText?: Function;
 	win?: boolean;
 }) {
 	const [tiles, setTiles] = useState([] as any[]);
-	let ids = [];
 	let arr: any = [];
 	const controls = useAnimationControls();
 
@@ -106,12 +103,11 @@ function Line({
 		if (backspace && setBackspace) setBackspace(false);
 
 		setTiles(arr);
-		if (type === "guess" && setStatText) {
-			setStatText((prev: string[]) => [...prev, statTxt]);
-		}
 		//eslint-disable-next-line
 	}, [word]);
 
+	// guesses and a current guess are justified to the top, while the rest is justified to the bottom. Reason: the split of
+	// a second after the enter was pressed
 	return (
 		<motion.div
 			animate={controls}
