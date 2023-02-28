@@ -30,7 +30,7 @@ function StateContextProvider({ children }: { children: ReactNode }) {
 			stateDispatch({ type: "user", value: user });
 			stateDispatch({
 				type: "alert",
-				value: { message: "Vitaj späť!", instant: true },
+				value: { message: `Vitaj späť ${user.name}`, instant: true },
 			});
 		};
 
