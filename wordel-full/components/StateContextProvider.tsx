@@ -33,8 +33,8 @@ function StateContextProvider({ children }: { children: ReactNode }) {
 				value: { message: `Vitaj späť ${user.name}`, instant: true },
 			});
 		};
-
-		logInFromJWT();
+		if (state.user === null) logInFromJWT();
+		//eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {

@@ -78,7 +78,7 @@ function stateReducer(
 			if (!state.user || !action.try) {
 				return { ...state, alert: { message: "👏 👏🏻 👏🏾", permanent: false } };
 			}
-			// 6 hodin som tu zabil. PROBLEM: zober pole zo stateu a incrementi prvok na pozicii action.try-1
+			// 6 hodin som tu zabil. PROBLEM: zober pole zo stateu a incrementi prvok arr[action.try-1]
 
 			// Arrs & objs are REFERENCE TYPES, therefore 'newCopyOfArr = arr' NEUROBI kopiu, len vytvori novy pointer na tie iste data.
 			// ked chcem urobit kopiu arru/obju treba novy arr/obj a spread operator. Taze 'newCopyOfArr = [...arr]' resp. 'newCopyOfObj = {...obj}'
