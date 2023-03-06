@@ -44,10 +44,12 @@ function stateReducer(
 			return {
 				...state,
 				lastUpdated: { language: value },
-				user: {
-					...state.user,
-					language: value,
-				} as types.user,
+				user:
+					state.user &&
+					({
+						...state.user,
+						language: value,
+					} as types.user),
 				language: value,
 			};
 		case "name":
