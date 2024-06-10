@@ -93,7 +93,7 @@ function Game() {
 		let pickedWord =
 			answers[Math.floor(Math.random() * answers.length)].toLowerCase();
 		setTheWord(pickedWord);
-		// console.log("Vysledok neni " + pickedWord.toUpperCase());
+		console.log(pickedWord.toUpperCase());
 	};
 	const fetchDictionary = async () => {
 		let dict;
