@@ -5,7 +5,7 @@ import uuid from 'react-uuid';
 
 function LoggedUserSidebarCard({ user }: { user: types.user }) {
 	return (
-		<div className='profile-card'>
+		<div className='profile-card cursor-default'>
 			<div className='profile-card-board'>
 				{user.icon.map((color) => (
 					<span
