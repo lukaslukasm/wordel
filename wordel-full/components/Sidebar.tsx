@@ -1,14 +1,14 @@
-import x from "/public/assets/x.png";
-import jazyk from "/public/assets/jazyk.png";
-import Switcher from "./Switcher";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useContext, useState } from "react";
-import StateContext from "./StateContext";
-import barChart from "/public/assets/bar-chart.png";
-import arrow from "/public/assets/arrow.svg";
-import Image from "next/image";
-import Link from "next/link";
-import LoggedUserSidebarCard from "./LoggedUserSidebarCard";
+import x from '/public/assets/x.png';
+import jazyk from '/public/assets/jazyk.png';
+import Switcher from './Switcher';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useContext, useState } from 'react';
+import StateContext from './StateContext';
+import barChart from '/public/assets/bar-chart.png';
+import arrow from '/public/assets/arrow.svg';
+import Image from 'next/image';
+import Link from 'next/link';
+import LoggedUserSidebarCard from './LoggedUserSidebarCard';
 
 function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 	const [show, setShow] = useState(true);
@@ -27,9 +27,9 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 
 	// odhlasenie
 	const handleSignOut = () => {
-		if (localStorage.getItem("jwt")) localStorage.removeItem("jwt");
-		if (sessionStorage.getItem("jwt")) sessionStorage.removeItem("jwt");
-		stateDispatch({ type: "user", value: null });
+		if (localStorage.getItem('jwt')) localStorage.removeItem('jwt');
+		if (sessionStorage.getItem('jwt')) sessionStorage.removeItem('jwt');
+		stateDispatch({ type: 'user', value: null });
 	};
 
 	return (
@@ -47,7 +47,7 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 					<motion.nav
 						onClick={(e) => e.stopPropagation()}
 						initial={{ x: -320 }}
-						animate={{ x: 0, transition: { type: "ease-in", duration: 0.2 } }}
+						animate={{ x: 0, transition: { type: 'ease-in', duration: 0.2 } }}
 						exit={{ x: -320 }}
 						className='sidebar'
 					>
@@ -55,7 +55,11 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 							className='h-6 absolute flex justify-end top-4 right-2'
 							onClick={() => setShow(false)}
 						>
-							<Image src={x} alt='' className='w-4 mr-2 invert' />
+							<Image
+								src={x}
+								alt=''
+								className='w-4 mr-2 invert object-contain'
+							/>
 						</button>
 						<div className='flex w-full pt-[max(20px,5vh)] flex-col overflow-y-scroll justify-center'>
 							{!user ? (
@@ -65,10 +69,16 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 										Registruj sa a získaj možnosť zobrazenia osobných štatistík!
 									</p>
 									<div className='flex justify-center w-full gap-4'>
-										<Link href='/login' className='menu-btn'>
+										<Link
+											href='/login'
+											className='menu-btn'
+										>
 											Prihlásiť
 										</Link>
-										<Link href='/signin' className='menu-btn'>
+										<Link
+											href='/signin'
+											className='menu-btn'
+										>
 											Registrovať
 										</Link>
 									</div>
@@ -79,17 +89,25 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 							)}
 							{/* logged + notlogged moznosti */}
 							<span className='menu-item-link'>
-								<Image src={barChart} className='invert w-6 mr-2' alt='' />
+								<Image
+									src={barChart}
+									className='invert w-6 mr-2'
+									alt=''
+								/>
 								<span
 									onClick={() => {
 										setShow(false);
-										stateDispatch({ type: "toggleStats" });
+										stateDispatch({ type: 'toggleStats' });
 									}}
 									className='w-full text-left mt-0.5'
 								>
 									Štatistiky
 								</span>
-								<Image src={arrow} className='arrow invert w-6' alt='' />
+								<Image
+									src={arrow}
+									className='arrow invert w-6'
+									alt=''
+								/>
 							</span>
 							<span className='menu-item-link'>
 								<span className='font-black text-2xl leading-none w-8 text-center mr-2'>
@@ -98,18 +116,26 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 								<span
 									onClick={() => {
 										setShow(false);
-										stateDispatch({ type: "toggleHelp" });
+										stateDispatch({ type: 'toggleHelp' });
 									}}
 									className='w-full text-left mt-0.5'
 								>
 									Pomocník
 								</span>
-								<Image src={arrow} className='arrow invert w-6' alt='' />
+								<Image
+									src={arrow}
+									className='arrow invert w-6'
+									alt=''
+								/>
 							</span>
 							{/* nastavenia hry */}
 							<span className='kategoria mt-8'>Nastavenia hry</span>
 							<span className='menu-item'>
-								<Image src={jazyk} className='invert w-6 mr-2' alt='' />
+								<Image
+									src={jazyk}
+									className='invert w-6 mr-2'
+									alt=''
+								/>
 								<span className='w-full text-left'>Jazyk</span>
 								<Switcher />
 							</span>
