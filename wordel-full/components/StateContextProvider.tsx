@@ -1,21 +1,21 @@
-"use client";
-import { useEffect, useLayoutEffect, useReducer } from "react";
-import { ReactNode } from "react";
-import StateContext from "./StateContext";
-import usePrevious from "../hooks/usePrevious";
-import * as types from "../types/types";
-import stateReducer from "@/hooks/stateReducer";
-import fetchUser from "@/tools/fetchUser";
-import updateUser from "@/tools/updateUser";
+'use client';
+import { useEffect, useReducer } from 'react';
+import { ReactNode } from 'react';
+import StateContext from './StateContext';
+import usePrevious from '../hooks/usePrevious';
+import * as types from '../types/types';
+import stateReducer from '@/hooks/stateReducer';
+import fetchUser from '@/tools/fetchUser';
+import updateUser from '@/tools/updateUser';
 
 const initState = {
-	language: "sk",
+	language: 'sk',
 	user: null,
 	isStatsOpen: false,
 	isHelpOpen: false,
 	restart: false,
 	lastUpdated: {} as types.lastUpdated,
-	alert: { message: "", permanent: false } as types.alert,
+	alert: { message: '', permanent: false } as types.alert,
 } as types.state;
 
 function StateContextProvider({ children }: { children: ReactNode }) {
@@ -23,13 +23,13 @@ function StateContextProvider({ children }: { children: ReactNode }) {
 
 	const prevUser = usePrevious(state.user);
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const logInFromJWT = async () => {
 			const user = await fetchUser();
 			if (!user) return;
-			stateDispatch({ type: "user", value: user });
+			stateDispatch({ type: 'user', value: user });
 			stateDispatch({
-				type: "alert",
+				type: 'alert',
 				value: { message: `Vitaj späť ${user.name}`, instant: true },
 			});
 		};
