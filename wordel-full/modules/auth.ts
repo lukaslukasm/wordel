@@ -41,7 +41,6 @@ export const protect = (req: NextApiRequest, res: NextApiResponse) => {
 
 	try {
 		const user = jwt.verify(token, process.env.JWT_SECRET as Secret);
-		console.log(user);
 		return user;
 	} catch (error: any) {
 		throw new Error(error);
