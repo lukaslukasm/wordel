@@ -7,7 +7,6 @@ import Sidebar from "./Sidebar";
 import barChart from "/public/assets/bar-chart.png";
 import StatModal from "./StatModal";
 import StateContext from "./StateContext";
-import { state } from "@/types/types";
 
 function Header() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -51,7 +50,7 @@ function Header() {
 
 			{state.isHelpOpen && <HelpModal setShowModal={toggleHelp} />}
 
-			{showMenu && <Sidebar setShowMenu={setShowMenu} />}
+			{showMenu ? <Sidebar setShowMenu={setShowMenu} /> : ""}
 
 			{state.isStatsOpen && <StatModal setIsStatsOpen={toggleStats} />}
 		</header>

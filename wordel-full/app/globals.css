@@ -112,22 +112,6 @@
 		@apply tile bg-neutral-700;
 	}
 
-	.user-icon-tile {
-		@apply w-12 h-12 rounded-md;
-	}
-
-	.user-icon-tile[color="yellow"] {
-		@apply bg-yellow;
-	}
-
-	.user-icon-tile[color="green"] {
-		@apply bg-green-700;
-	}
-
-	.user-icon-tile[color="neutral"] {
-		@apply bg-neutral-700;
-	}
-
 	.board {
 		height: calc((6 * min(8.3vh, 64px)) + 36px);
 		/* max-height: calc((6 * 62px) + (5 * 6px)); */
@@ -235,7 +219,33 @@
 	}
 
 	.profile-card {
-		@apply flex-col shadow-xl border-neutral-700 border-t-2 bg-neutral-800 pt-6 pb-6 mt-2 mb-6 rounded-xl mx-11 flex items-center;
+		@apply flex-wrap justify-center items-center transition-all shadow-xl cursor-pointer border-neutral-700 border-t-2 bg-neutral-800 pt-6 pb-6 mt-2 mb-6 rounded-xl mx-auto w-52 flex;
+	}
+
+	.profile-card-board {
+		@apply grid gap-1 origin-center grid-cols-3 content-center bg-[#121212] p-1 rounded-lg ml-[24px] mr-[23px] mb-5;
+	}
+	.profile-card-text {
+		@apply inline-flex items-start flex-col w-full;
+	}
+	.profile-card-text p {
+		@apply text-center w-full mx-auto;
+	}
+
+	.user-icon-tile {
+		@apply p-6 origin-center rounded-md;
+	}
+
+	.user-icon-tile[color="yellow"] {
+		@apply bg-yellow;
+	}
+
+	.user-icon-tile[color="green"] {
+		@apply bg-green-700;
+	}
+
+	.user-icon-tile[color="neutral"] {
+		@apply bg-neutral-700;
 	}
 
 	.cekboks:after {

@@ -4,17 +4,16 @@ import Switcher from "./Switcher";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useContext, useState } from "react";
 import StateContext from "./StateContext";
-import uuid from "react-uuid";
 import barChart from "/public/assets/bar-chart.png";
 import arrow from "/public/assets/arrow.svg";
 import Image from "next/image";
 import Link from "next/link";
+import LoggedUserSidebarCard from "./LoggedUserSidebarCard";
 
 function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 	const [show, setShow] = useState(true);
 	const [state, stateDispatch] = useContext(StateContext);
 	const { language, user, isStatsOpen } = state;
-	const [userIcon, setUserIcon] = useState(Array(9).fill("neutral"));
 
 	// zatvaranie menu
 	useEffect(() => {
@@ -32,12 +31,6 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 		if (sessionStorage.getItem("jwt")) sessionStorage.removeItem("jwt");
 		stateDispatch({ type: "user", value: null });
 	};
-
-	// nastavenie usrovej ikony na karticku v =
-	useEffect(() => {
-		if (!user?.icon) return;
-		setUserIcon(user.icon);
-	}, [user]);
 
 	return (
 		<AnimatePresence>
@@ -82,23 +75,7 @@ function Sidebar({ setShowMenu }: { setShowMenu: Function }) {
 								</div>
 							) : (
 								// karticka a moznosti logged user
-								<div className='profile-card'>
-									<div className='flex bg-[#121212] py-[3px] rounded-lg items-center ml-[25px] mr-[24px] justify-center flex-wrap mb-5 gap-1'>
-										{userIcon.map((color) => (
-											<span
-												key={uuid()}
-												color={color}
-												className='user-icon-tile'
-											/>
-										))}
-									</div>
-									<p className=' text-xl max-w-[180px] overflow-hidden'>
-										{user.name}
-									</p>
-									<p className='italic overflow-hidden max-w-[180px] text-neutral-600'>
-										{user.email}
-									</p>
-								</div>
+								<LoggedUserSidebarCard user={user} />
 							)}
 							{/* logged + notlogged moznosti */}
 							<span className='menu-item-link'>
