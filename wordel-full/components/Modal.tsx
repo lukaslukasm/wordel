@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
-import { useState } from "react";
-import x from "/public/assets/x.png";
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
+import x from '/public/assets/x.png';
 
 function Modal({
 	setShowModal,
@@ -22,7 +22,10 @@ function Modal({
 
 	return (
 		// background
-		<div className='modal-bg' onClick={() => handleXClick()}>
+		<div
+			className='modal-bg overflow-hidden'
+			onClick={() => handleXClick()}
+		>
 			<AnimatePresence>
 				{!hideModal && (
 					<motion.div
@@ -36,7 +39,11 @@ function Modal({
 							className='h-6 absolute right-4 top-3'
 							onClick={() => handleXClick()}
 						>
-							<Image src={x} alt='' className='invert w-4' />
+							<Image
+								src={x}
+								alt=''
+								className='invert w-4'
+							/>
 						</button>
 						{children}
 					</motion.div>
