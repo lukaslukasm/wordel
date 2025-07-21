@@ -1,9 +1,9 @@
-"use client";
-import StateContext from "@/components/StateContext";
-import uuid from "react-uuid";
-import { useContext, useEffect, useState } from "react";
-import Header from "@/components/Header";
-import Game from "@/components/Game";
+'use client';
+import StateContext from '@/components/StateContext';
+import uuid from 'react-uuid';
+import { useContext, useEffect, useState } from 'react';
+import Header from '@/components/Header';
+import Game from '@/components/Game';
 
 export default function Home() {
 	const [key, setKey] = useState(uuid());
