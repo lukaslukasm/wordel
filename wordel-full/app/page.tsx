@@ -14,7 +14,7 @@ export default function Home() {
 	}, [state.language, state.restart]);
 
 	return (
-		<div className='max-h-screen flex flex-col'>
+		<div className='max-h-svh overflow-hidden flex flex-col'>
 			<Header />
 			<Game key={key} />
 		</div>

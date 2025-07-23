@@ -1,16 +1,16 @@
-"use client";
-import { useContext, useEffect, useState } from "react";
-import uuid from "react-uuid";
-import Line from "./Line";
-import Alert from "./Alert";
-import Keyboard from "./Keyboard";
-import StateContext from "./StateContext";
+'use client';
+import { useContext, useEffect, useState } from 'react';
+import uuid from 'react-uuid';
+import Line from './Line';
+import Alert from './Alert';
+import Keyboard from './Keyboard';
+import StateContext from './StateContext';
 
 function Game() {
 	const [guesses, setGuesses] = useState([] as string[]);
-	const [theWord, setTheWord] = useState<string>("");
+	const [theWord, setTheWord] = useState<string>('');
 	const [badOrientation, setBadOrientation] = useState<boolean>(false);
-	const [currentGuess, setCurrentGuess] = useState<string>("");
+	const [currentGuess, setCurrentGuess] = useState<string>('');
 	const [game, setGame] = useState(true);
 	const [win, setWin] = useState(false);
 	const [guessTiles, setGuessTiles] = useState<React.ReactElement<any, any>[]>(
@@ -29,18 +29,23 @@ function Game() {
 		// setting empty tiles
 		let arr = [];
 		for (let i = 0; i < 6; i++) {
-			arr.push(<Line key={uuid()} type='empty' />);
+			arr.push(
+				<Line
+					key={uuid()}
+					type='empty'
+				/>
+			);
 		}
 		setEmptyTiles(arr);
 		fetchTheWord();
 		fetchDictionary();
 		// window resize listener
-		window.addEventListener("resize", () =>
+		window.addEventListener('resize', () =>
 			setBadOrientation(
 				window.innerHeight < window.innerWidth && window.innerHeight < 450
 			)
 		);
-		return () => window.removeEventListener("resize", () => {});
+		return () => window.removeEventListener('resize', () => {});
 		//eslint-disable-next-line
 	}, []);
 
@@ -72,12 +77,12 @@ function Game() {
 	useEffect(() => {
 		if (game) return;
 		if (win) {
-			stateDispatch({ type: "win", try: guesses.length });
+			stateDispatch({ type: 'win', try: guesses.length });
 		} else {
-			stateDispatch({ type: "loss", value: theWord });
+			stateDispatch({ type: 'loss', value: theWord });
 		}
 		const timer = setTimeout(
-			() => stateDispatch({ type: "toggleStats" }),
+			() => stateDispatch({ type: 'toggleStats' }),
 			2000
 		);
 		return () => clearTimeout(timer);
@@ -86,10 +91,10 @@ function Game() {
 
 	const fetchTheWord = async () => {
 		let promise;
-		if (state.language === "sk") promise = await fetch("/data/slovenske.txt");
-		else promise = await fetch("/data/answers.txt");
+		if (state.language === 'sk') promise = await fetch('/data/slovenske.txt');
+		else promise = await fetch('/data/answers.txt');
 		const result = await promise.text();
-		let answers = [...result.split("\n")];
+		let answers = [...result.split('\n')];
 		let pickedWord =
 			answers[Math.floor(Math.random() * answers.length)].toLowerCase();
 		setTheWord(pickedWord);
@@ -97,18 +102,18 @@ function Game() {
 	};
 	const fetchDictionary = async () => {
 		let dict;
-		if (state.language === "sk") dict = await fetch("/data/slovnik.txt");
-		else dict = await fetch("/data/guesses.txt");
+		if (state.language === 'sk') dict = await fetch('/data/slovnik.txt');
+		else dict = await fetch('/data/guesses.txt');
 		const result = await dict.text();
-		setDictionary([...result.split("\n")]);
+		setDictionary([...result.split('\n')]);
 	};
 
 	// Enter handler
 	const enterHandler = async () => {
 		if (dictionary.indexOf(currentGuess) === -1) {
 			stateDispatch({
-				type: "alert",
-				value: { message: "Nespisovné", instant: true },
+				type: 'alert',
+				value: { message: 'Nespisovné', instant: true },
 			});
 			setShake(true);
 			return;
@@ -123,10 +128,10 @@ function Game() {
 			setWin(true);
 			setGame(false);
 		}
-		setCurrentGuess("");
+		setCurrentGuess('');
 		if (guesses.length !== 5 && currentGuess !== theWord) return;
 		const timer = setTimeout(
-			() => stateDispatch({ type: "isStatsOpen" }),
+			() => stateDispatch({ type: 'isStatsOpen' }),
 			2000
 		);
 		return () => clearTimeout(timer);
@@ -134,14 +139,14 @@ function Game() {
 
 	// key press handler
 	const keyPressedHandler = (e: KeyboardEvent) => {
-		if (!isAlpha(e.key) && e.key !== "Enter" && e.key !== "Backspace") return;
+		if (!isAlpha(e.key) && e.key !== 'Enter' && e.key !== 'Backspace') return;
 		if (!game) return;
-		if (e.key === "Enter" && currentGuess.length !== 5) return;
+		if (e.key === 'Enter' && currentGuess.length !== 5) return;
 		switch (e.key) {
-			case "Enter":
+			case 'Enter':
 				enterHandler();
 				break;
-			case "Backspace":
+			case 'Backspace':
 				setCurrentGuess((prev) => prev.slice(0, -1));
 				setBackspace(true);
 				break;
@@ -154,9 +159,9 @@ function Game() {
 	};
 
 	useEffect(() => {
-		document.addEventListener("keydown", keyPressedHandler);
+		document.addEventListener('keydown', keyPressedHandler);
 		return () => {
-			document.removeEventListener("keydown", keyPressedHandler);
+			document.removeEventListener('keydown', keyPressedHandler);
 		};
 		//eslint-disable-next-line
 	}, [currentGuess]);
@@ -166,7 +171,7 @@ function Game() {
 	};
 
 	return (
-		<main className='w-full items-center flex justify-center'>
+		<main className='w-full items-center h-full flex-col flex justify-center'>
 			{badOrientation === true ? (
 				<h2 className='absolute text-center bottom-1/2 translate-y-1/2 left-0 right-0'>
 					Wordeľ še bavi na vyšku.
@@ -175,7 +180,7 @@ function Game() {
 				<>
 					{/* board */}
 					<Alert />
-					<div className='board'>
+					<div className='board h-min'>
 						{guesses && (
 							<div className='flex flex-col justify-start'>{guessTiles}</div>
 						)}
